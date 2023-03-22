@@ -5,7 +5,6 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
 import android.graphics.*
-import com.example.mystorage.R
 
 
 class CustomBottomNavigationView : BottomNavigationView {

@@ -3,4 +3,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_storage">My storage</string>
+    <string name="아이디">아이디 입력</string>
+    <string name="비밀번호">비밀번호 입력</string>
+    <string name="로그인">로그인</string>
+    <string name="비밀번호변경">비밀번호 변경</string>
+    <string name="아이디찾기">아이디 찾기</string>
+    <string name="회원가입">회원가입</string>
+    <string name="인증">인증번호를 입력해 주세요</string>
+    <string name="전화번호">전화번호 입력</string>
+    <string name="인증번호">인증번호 받기</string>
+    <string name="비밀번호확인">비밀번호 확인</string>
+    <string name="닉네임">닉네임 입력</string>
+    <string name="물건검색">내 창고의 물건 검색</string>
+    <string name="목록">목록</string>
+    <string name="구조">구조</string>
+    <string name="물건추가">물건추가</string>
+    <string name="example">example</string>
 </resources>
