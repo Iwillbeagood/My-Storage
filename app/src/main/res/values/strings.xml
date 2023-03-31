@@ -10,7 +10,7 @@
     <string name="아이디찾기">아이디 찾기</string>
     <string name="회원가입">회원가입</string>
     <string name="인증">인증번호를 입력해 주세요</string>
-    <string name="전화번호">전화번호 입력</string>
+    <string name="전화번호">- 를 빼고 입력해 주세요</string>
     <string name="인증번호">인증번호 받기</string>
     <string name="비밀번호확인">비밀번호 확인</string>
     <string name="닉네임">닉네임 입력</string>
