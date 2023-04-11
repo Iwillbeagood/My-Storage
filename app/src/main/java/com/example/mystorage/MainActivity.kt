@@ -20,6 +20,7 @@ import com.example.mystorage.mvvm.viewmodel.login.LoginViewModel
 import com.example.mystorage.mvvm.viewmodel.login.LoginViewModelFactory
 import com.example.mystorage.utils.ActivityUtil
 import com.example.mystorage.utils.ActivityUtil.goToNextActivity
+import com.example.mystorage.utils.App
 import com.example.mystorage.utils.Constants.TAG
 
 class MainActivity : AppCompatActivity(), LoginIView, View.OnClickListener {
@@ -44,12 +45,19 @@ class MainActivity : AppCompatActivity(), LoginIView, View.OnClickListener {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
             )
         }
+
+        checkAutoLogin()
     }
 
-    override fun onLoginSuccess(message: String?) {
+    override fun onLoginSuccess(message: String?, id: String, password: String) {
         Log.d(TAG, "MainActivity - onLoginSuccess() called")
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
-        ActivityUtil.goToNextActivity(this, MainPage())
+
+        // 로그인 정보 저장
+        App.prefs.setString("userid", id)
+        App.prefs.setString("userpassword", password)
+
+        goToNextActivity(this, MainPage())
     }
 
     override fun onLoginError(message: String?) {
@@ -78,6 +86,16 @@ class MainActivity : AppCompatActivity(), LoginIView, View.OnClickListener {
                 inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
                 binding.viewModel!!.onLogin()
             }
+        }
+    }
+
+    override fun checkAutoLogin() {
+        val savedUserId = App.prefs.getString("userid", "")
+        val savedUserPassword = App.prefs.getString("userpassword", "")
+
+        if (savedUserId.isNotEmpty() && savedUserPassword.isNotEmpty()) {
+            binding.viewModel!!.setAutoLogin(savedUserId, savedUserPassword)
+            binding.viewModel!!.onLogin()
         }
     }
 }

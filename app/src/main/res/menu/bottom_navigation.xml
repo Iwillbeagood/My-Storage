@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_list"
-        android:icon="@drawable/list"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_24"
         android:title="@string/목록" />
 
     <item
-        android:id="@+id/action_empty"
-        android:title=""
-        android:enabled="false"
-        android:checkable="false"/>
-
-    <item
         android:id="@+id/action_structure"
-        android:icon="@drawable/structure"
+        android:icon="@drawable/ic_baseline_warehouse_24"
+        android:enabled="true"
         android:title="@string/구조" />
 
 </menu>

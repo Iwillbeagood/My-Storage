@@ -64,12 +64,17 @@ class LoginViewModel(private val loginIView: LoginIView): ViewModel(), LoginView
             object : UserResponseManager.OnResponseCompleteListener {
                 override fun onSuccess(message: String) {
                     Log.d(TAG, "LoginViewModel - onSuccess() called - response: $message")
-                    loginIView.onLoginSuccess(message)
+                    loginIView.onLoginSuccess(message, user.getID().toString(), user.getPassword().toString())
                 }
 
                 override fun onError(message: String) {
                     Log.d(TAG, "LoginViewModel - onError() called - response: $message")
                     loginIView.onLoginError(message)                }
             })
+    }
+
+    override fun setAutoLogin(id: String, password: String) {
+        user.setID(id)
+        user.setPassword(password)
     }
 }

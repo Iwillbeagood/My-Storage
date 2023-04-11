@@ -6,5 +6,6 @@ interface LoginViewIModel{
     fun onLogin()
     fun getResponseOnLogin()
     fun userRegistrationResponse(response: UserRegistrationResponse)
+    fun setAutoLogin(id: String, password: String)
 }
 
