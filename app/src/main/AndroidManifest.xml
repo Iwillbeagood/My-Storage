@@ -24,21 +24,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".login.SignInPage"
+            android:name=".mvvm.view.signIn.SignInPage"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".login.ChangePasswordPage"
+            android:name=".mvvm.view.changePassword.ChangePage"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".login.FindIdPage"
+            android:name=".mvvm.view.findId.FindIdPage"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

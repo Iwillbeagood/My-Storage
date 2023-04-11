@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.mystorage.mvvm.viewmodel.login.LoginViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
@@ -14,12 +17,13 @@
             android:id="@+id/my_storage"
             android:layout_width="181dp"
             android:layout_height="50dp"
-            android:layout_marginTop="224dp"
+            android:layout_marginTop="180dp"
             android:gravity="center_horizontal|top"
             android:text="@string/my_storage"
             android:textAppearance="@style/my_storage"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.504"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +40,7 @@
             android:id="@+id/idLayout"
             android:layout_width="342dp"
             android:layout_height="49dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="100dp"
             android:background="@drawable/bolder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,13 +58,14 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/idEdit"
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/아이디"
                 android:inputType="text"
                 android:maxLines="1"
                 android:layout_marginStart="50dp"
+                app:addTextChangedListener="@{viewModel.idTextWatcher}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -90,35 +95,37 @@
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/passwordEdit"
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/비밀번호"
                 android:layout_marginStart="50dp"
                 android:inputType="text"
                 android:maxLines="1"
+                app:addTextChangedListener="@{viewModel.passwordTextWatcher}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/LoginBtn"
+            style="@style/MaterialButtonStyle"
             android:layout_width="342dp"
             android:layout_height="49dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/brownbolder"
-            android:layout_marginTop="9dp"
             android:text="@string/로그인"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="17sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordLayout">
-        </androidx.appcompat.widget.AppCompatButton>
+        </com.google.android.material.button.MaterialButton>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="15dp"
+            android:layout_height="20dp"
             android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -127,10 +134,10 @@
             <TextView
                 android:id="@+id/passwordChangeView"
                 android:layout_width="wrap_content"
-                android:layout_height="15dp"
+                android:layout_height="match_parent"
                 android:text="@string/비밀번호변경"
                 android:textColor="@color/line"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -149,11 +156,11 @@
             <TextView
                 android:id="@+id/findIdView"
                 android:layout_width="wrap_content"
-                android:layout_height="15dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="26dp"
                 android:text="@string/아이디찾기"
                 android:textColor="@color/line"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/view"
                 app:layout_constraintTop_toTopOf="parent"
@@ -171,13 +178,13 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:id="@+id/SignInView"
+                android:id="@+id/signInView"
                 android:layout_width="wrap_content"
-                android:layout_height="15dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="26dp"
                 android:text="@string/회원가입"
                 android:textColor="@color/line"
-                android:textSize="12sp"
+                android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/view2"
                 app:layout_constraintTop_toTopOf="parent"

@@ -19,4 +19,5 @@
     <string name="구조">구조</string>
     <string name="물건추가">물건추가</string>
     <string name="example">example</string>
+    <string name="비밀번호체크">비밀번호가 일치하지 않습니다.</string>
 </resources>

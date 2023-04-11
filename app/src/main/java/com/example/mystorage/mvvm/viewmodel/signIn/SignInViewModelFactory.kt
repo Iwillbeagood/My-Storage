@@ -1,13 +1,10 @@
-package com.example.mystorage.login.viewmodel
+package com.example.mystorage.mvvm.viewmodel.signIn
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.mystorage.login.view.IView
+import com.example.mystorage.mvvm.view.signIn.SignInIView
 
-class ViewModelFactory(
-    private val signInView: IView
-): ViewModelProvider.Factory {
-
+class SignInViewModelFactory(private val signInView: SignInIView): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SignInViewModel::class.java))
             return SignInViewModel(signInView) as T

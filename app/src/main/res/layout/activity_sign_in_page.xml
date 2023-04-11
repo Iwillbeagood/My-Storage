@@ -7,13 +7,24 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.mystorage.login.viewmodel.SignInViewModel" />
+            type="com.example.mystorage.mvvm.viewmodel.signIn.SignInViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".login.SignInPage">
+        tools:context=".mvvm.view.signIn.SignInPage">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signInBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/ic_baseline_navigate_before_24"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textView"
@@ -52,11 +63,12 @@
 
             <EditText
                 android:id="@+id/nickNameEdit"
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
                 android:background="@null"
                 android:hint="@string/닉네임"
-                android:layout_marginStart="50dp"
+                android:text="배준형"
                 app:addTextChangedListener="@{viewModel.nameTextWatcher}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +98,7 @@
 
             <EditText
                 android:id="@+id/idEditInSignIn"
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/아이디"
@@ -95,6 +107,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -121,7 +134,7 @@
 
             <EditText
                 android:id="@+id/passwordEditInSignIn"
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/비밀번호"
@@ -154,17 +167,16 @@
 
             <EditText
                 android:id="@+id/passwordCheckEditInSignIn"
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
                 android:background="@null"
                 android:hint="@string/비밀번호확인"
-                android:layout_marginStart="50dp"
                 app:addTextChangedListener="@{viewModel.passwordCheckTextWatcher}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -183,7 +195,8 @@
                 android:background="@drawable/bolder"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0">
 
                 <ImageView
                     android:id="@+id/imageView2"
@@ -199,9 +212,10 @@
                     android:id="@+id/phoneEditInSignIn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
                     android:background="@null"
                     android:hint="@string/전화번호"
-                    android:layout_marginStart="50dp"
+                    android:maxLength="11"
                     app:addTextChangedListener="@{viewModel.phoneTextWatcher}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -216,6 +230,8 @@
                 android:background="@drawable/brownbolder"
                 android:text="@string/인증번호"
                 android:textColor="@color/white"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -244,30 +260,35 @@
 
             <EditText
                 android:id="@+id/authenticationEditInSignIn"
-                android:layout_width="wrap_content"
+                android:layout_width="280dp"
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/인증"
                 android:layout_marginStart="50dp"
+                android:maxLength="6"
                 app:addTextChangedListener="@{viewModel.authenticationTextWatcher}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/signIntBtn"
+            style="@style/MaterialButtonStyle"
             android:layout_width="342dp"
             android:layout_height="49dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/brownbolder"
             android:text="@string/회원가입"
             android:textColor="@color/white"
-            android:textSize="20sp"
-            android:onClick="@{viewModel::onSignIn"
+            android:textSize="17sp"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/authenticationLayoutInSignIn" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
