@@ -17,7 +17,17 @@
     <string name="물건검색">내 창고의 물건 검색</string>
     <string name="목록">목록</string>
     <string name="구조">구조</string>
-    <string name="물건추가">물건추가</string>
+    <string name="창고">창고에 물건을 넣어주세요</string>
     <string name="example">example</string>
-    <string name="비밀번호체크">비밀번호가 일치하지 않습니다.</string>
+    <string name="비밀번호체크">비밀번호가 일치하지 않습니다</string>
+    <string name="창고에물건">창고에 물건 넣기</string>
+    <string name="물건이름입력">물건의 이름을 입력해 주세요</string>
+    <string name="물건이름">* 물건 이름</string>
+    <string name="물건구매처">물건 구매처</string>
+    <string name="물건사진">물건 사진</string>
+    <string name="물건위치">물건 위치</string>
+    <string name="물건수량">물건 수량</string>
+    <string name="물건구매처입력">물건의 구매처를 입력해 주세요</string>
+    <string name="물건위치입력">물건을 놓을 위치를 입력해 주세요</string>
+    <string name="구조입력">물건을 넣을 집 구조 정보를 입력해 주세요</string>
 </resources>

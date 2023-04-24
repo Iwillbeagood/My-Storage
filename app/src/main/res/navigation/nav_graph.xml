@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/itemListFragment">
+    app:startDestination="@+id/itemStructureFragment">
 
-    <fragment
-        android:id="@+id/itemListFragment"
-        android:name="com.example.mystorage.fragment.ItemListFragment"
-        android:label="ItemListFragment"
-        tools:layout="@layout/fragment_item_list"
+
+    <activity
+        android:id="@+id/mainPage"
+        android:name="com.example.mystorage.MainPage"
+        android:label="MainPage"
+        tools:layout="@layout/activity_main_page"
         />
 
     <fragment
@@ -18,5 +19,57 @@
         android:label="ItemStructureFragment"
         tools:layout="@layout/fragment_item_structure"
         />
+
+    <fragment
+        android:id="@+id/itemListFragment"
+        android:name="com.example.mystorage.mvvm.item.view.itemList.ItemListFragment"
+        android:label="ItemListFragment"
+        tools:layout="@layout/fragment_item_list"
+        />
+
+    <dialog
+        android:id="@+id/itemAddDialogFragment"
+        android:name="com.example.mystorage.mvvm.item.view.itemAddView.ItemAddDialogFragment"
+        android:label="fragment_item_add_dialog"
+        tools:layout="@layout/fragment_item_add_dialog" >
+        <action
+            android:id="@+id/action_itemAddDialogFragment_to_cameraGalleryDialogFragment"
+            app:destination="@id/cameraGalleryDialogFragment" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/cameraGalleryDialogFragment"
+        android:name="com.example.mystorage.fragment.CameraGalleryDialogFragment"
+        android:label="fragment_camera_gallery_dialog"
+        tools:layout="@layout/fragment_camera_gallery_dialog" >
+
+        <argument
+            android:name="imageBitmap"
+            app:argType="string"
+            android:defaultValue="" />
+
+        <argument
+            android:name="imageUrl"
+            app:argType="string"
+            android:defaultValue="" />
+
+        <action
+            android:id="@+id/action_cameraGalleryDialogFragment_to_itemAddDialogFragment"
+            app:destination="@id/itemAddDialogFragment">
+
+            <argument
+                android:name="imageBitmap"
+                app:argType="string"
+                app:nullable="true" />
+
+            <argument
+                android:name="imageUrl"
+                app:argType="string"
+                app:nullable="true" />
+
+        </action>
+    </dialog>
+
+
 
 </navigation>

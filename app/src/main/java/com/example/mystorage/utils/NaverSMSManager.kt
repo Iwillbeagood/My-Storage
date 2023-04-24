@@ -3,9 +3,9 @@ package com.example.mystorage.utils
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import com.example.mystorage.mvvm.model.naverSMS.Message
-import com.example.mystorage.mvvm.model.naverSMS.SMSRequest
-import com.example.mystorage.mvvm.model.naverSMS.SMSResponse
+import com.example.mystorage.mvvm.user.model.naverSMS.Message
+import com.example.mystorage.mvvm.user.model.naverSMS.SMSRequest
+import com.example.mystorage.mvvm.user.model.naverSMS.SMSResponse
 import com.example.mystorage.retrofit.retrofitManager.NaverSMSRetrofitManager
 import retrofit2.Call
 import retrofit2.Callback

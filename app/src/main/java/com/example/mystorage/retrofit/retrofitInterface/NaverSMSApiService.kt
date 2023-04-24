@@ -1,8 +1,8 @@
 package com.example.mystorage.retrofit.retrofitInterface
 
 
-import com.example.mystorage.mvvm.model.naverSMS.SMSRequest
-import com.example.mystorage.mvvm.model.naverSMS.SMSResponse
+import com.example.mystorage.mvvm.user.model.naverSMS.SMSRequest
+import com.example.mystorage.mvvm.user.model.naverSMS.SMSResponse
 import retrofit2.Call
 import retrofit2.http.*
 

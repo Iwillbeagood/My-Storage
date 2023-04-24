@@ -6,12 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.mystorage.mvvm.viewmodel.login.LoginViewModel" />
+            type="com.example.mystorage.mvvm.user.viewmodel.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/white"
         >
 
         <TextView
@@ -115,7 +116,7 @@
             android:layout_width="342dp"
             android:layout_height="49dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/brownbolder"
+            android:background="@drawable/brownbackgroundbolder"
             android:text="@string/로그인"
             android:textColor="@color/white"
             android:textSize="17sp"

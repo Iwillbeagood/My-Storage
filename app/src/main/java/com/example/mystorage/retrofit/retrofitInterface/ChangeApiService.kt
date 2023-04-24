@@ -1,6 +1,6 @@
 package com.example.mystorage.retrofit.retrofitInterface
 
-import com.example.mystorage.mvvm.model.UserRegistrationResponse
+import com.example.mystorage.retrofit.response.ApiResponse
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface ChangeApiService {
     @FormUrlEncoded
-    @POST("changePassword.php")
+    @POST("user/changePassword.php")
     @Headers(
         "accept: application/json",
         "content-type: application/x-www-form-urlencoded; charset=utf-8"
@@ -18,5 +18,5 @@ interface ChangeApiService {
         @Field("userid") userid: String,
         @Field("userpassword") userpassword: String,
         @Field("userphone") userphone: String
-    ): Call<UserRegistrationResponse>
+    ): Call<ApiResponse>
 }

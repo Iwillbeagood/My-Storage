@@ -7,13 +7,14 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.mystorage.mvvm.viewmodel.findId.FindIdViewModel" />
+            type="com.example.mystorage.mvvm.user.viewmodel.findId.FindIdViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".mvvm.view.findId.FindIdPage">
+        android:background="@android:color/white"
+        tools:context=".mvvm.user.view.findId.FindIdPage">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/findIdBack"
@@ -47,7 +48,6 @@
             android:layout_height="49dp"
             android:layout_marginTop="29dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView">
 
@@ -91,7 +91,7 @@
                 android:layout_height="49dp"
                 android:text="@string/인증번호"
                 android:textColor="@color/white"
-                android:background="@drawable/brownbolder"
+                android:background="@drawable/brownbackgroundbolder"
                 android:clickable="true"
                 android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -109,7 +109,6 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/bolder"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
@@ -142,14 +141,13 @@
             android:layout_width="342dp"
             android:layout_height="49dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/brownbolder"
+            android:background="@drawable/brownbackgroundbolder"
             android:text="@string/아이디찾기"
             android:textColor="@color/white"
             android:textSize="17sp"
             android:clickable="true"
             android:focusable="true"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.492"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/authenticationLayoutInFindId" />
 

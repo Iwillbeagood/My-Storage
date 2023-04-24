@@ -12,16 +12,21 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.mystorage.databinding.ActivityMainBinding
-import com.example.mystorage.mvvm.view.changePassword.ChangePage
-import com.example.mystorage.mvvm.view.findId.FindIdPage
-import com.example.mystorage.mvvm.view.signIn.SignInPage
-import com.example.mystorage.mvvm.view.login.LoginIView
-import com.example.mystorage.mvvm.viewmodel.login.LoginViewModel
-import com.example.mystorage.mvvm.viewmodel.login.LoginViewModelFactory
-import com.example.mystorage.utils.ActivityUtil
+import com.example.mystorage.retrofit.response.ApiResponse
+import com.example.mystorage.mvvm.user.view.changePassword.ChangePage
+import com.example.mystorage.mvvm.user.view.findId.FindIdPage
+import com.example.mystorage.mvvm.user.view.signIn.SignInPage
+import com.example.mystorage.mvvm.user.view.login.LoginIView
+import com.example.mystorage.mvvm.user.viewmodel.login.LoginViewModel
+import com.example.mystorage.mvvm.user.viewmodel.login.LoginViewModelFactory
+import com.example.mystorage.retrofit.retrofitManager.RetrofitManager
 import com.example.mystorage.utils.ActivityUtil.goToNextActivity
 import com.example.mystorage.utils.App
 import com.example.mystorage.utils.Constants.TAG
+import org.json.JSONException
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity(), LoginIView, View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
@@ -53,11 +58,10 @@ class MainActivity : AppCompatActivity(), LoginIView, View.OnClickListener {
         Log.d(TAG, "MainActivity - onLoginSuccess() called")
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
 
-        // 로그인 정보 저장
         App.prefs.setString("userid", id)
         App.prefs.setString("userpassword", password)
 
-        goToNextActivity(this, MainPage())
+        getResponseOnUserHomeInfoCheck()
     }
 
     override fun onLoginError(message: String?) {
@@ -96,6 +100,45 @@ class MainActivity : AppCompatActivity(), LoginIView, View.OnClickListener {
         if (savedUserId.isNotEmpty() && savedUserPassword.isNotEmpty()) {
             binding.viewModel!!.setAutoLogin(savedUserId, savedUserPassword)
             binding.viewModel!!.onLogin()
+        }
+    }
+
+    override fun getResponseOnUserHomeInfoCheck() {
+        Log.d(TAG, "MainActivity - checkUserHomeInfo() called")
+        val api = RetrofitManager.getUserInfoHomeCheckApiService()
+
+        val call = api.userHomeInfoCheck(
+            App.prefs.getString("userid", "")
+        )
+
+        call.enqueue(object : Callback<ApiResponse> {
+            override fun onResponse(call: Call<ApiResponse>, response: Response<ApiResponse>) {
+                if (response.body() != null) {
+                    try {
+                        userHomeInfoCheckResponse(response.body()!!)
+                    } catch (e: JSONException) {
+                        toast("응답 결과 파싱 중 오류가 발생했습니다.")
+                    }
+                }
+            }
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                toast("통신 실패")
+                call.cancel()
+            }
+        })
+    }
+
+    override fun userHomeInfoCheckResponse(response: ApiResponse) {
+        val message = response.message
+        when (response.status) {
+            "true" -> {
+                // 초반 설정을 완료했음으로 바로 메인 페이지로 이동
+                goToNextActivity(this, MainPage())
+            }
+            "false" -> {
+                // 초반 설정을 완료하지 못했음으로 바로 설정 페이지로 이동
+                goToNextActivity(this, UserInformActivity())
+            }
         }
     }
 }

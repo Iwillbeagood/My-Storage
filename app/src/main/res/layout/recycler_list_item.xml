@@ -7,11 +7,14 @@
     android:layout_height="204dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
-    android:focusable="true">
+    android:focusable="true"
+    android:layout_margin="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/brownbolder"
+        >
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -21,57 +24,81 @@
             android:layout_marginTop="7dp"
             android:src="@drawable/example"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/listItemImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:scaleType="centerCrop" />
+        </androidx.cardview.widget.CardView>
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/listItemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
             android:text="@string/example"
+            android:textColor="@color/main"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cardView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/appCompatEditText"
+            android:id="@+id/listItemPlace"
             android:layout_width="160dp"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
-            android:textSize="10dp"
-            android:background="@drawable/bolder"
+            android:background="@drawable/brownbolder"
             android:gravity="left|center"
             android:paddingStart="10dp"
             android:text="@string/example"
+            android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/listItemStore"
             android:layout_width="160dp"
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
-            android:text="@string/example"
-            android:textSize="10dp"
+            android:background="@drawable/brownbolder"
             android:gravity="left|center"
             android:paddingStart="10dp"
-            android:background="@drawable/bolder"
+            android:text="@string/example"
+            android:textSize="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/listItemPlace" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="3dp"
             android:layout_marginBottom="3dp"
-            android:text="@string/example"
+            android:text="x "
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/listItemCount" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/listItemCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="3dp"
+            android:text="1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </androidx.cardview.widget.CardView>
