@@ -5,10 +5,11 @@ import com.example.mystorage.retrofit.response.ApiResponse
 
 interface ItemListIView {
     fun setGridRecyclerView()
+    fun filterItemList(searchText: String)
     fun getResponseOnItemLoad()
-    fun getResponseOnDelete(itemname: String)
     fun itemLoadResponse(response: UserItemResponse)
     fun itemDeleteResponse(response: ApiResponse)
     fun onItemListSuccess(message: String?)
     fun onItemListError(message: String?)
+    fun getResponseOnDelete(itemname: String, itemimage: String)
 }

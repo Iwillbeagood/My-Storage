@@ -30,4 +30,6 @@
     <string name="물건구매처입력">물건의 구매처를 입력해 주세요</string>
     <string name="물건위치입력">물건을 놓을 위치를 입력해 주세요</string>
     <string name="구조입력">물건을 넣을 집 구조 정보를 입력해 주세요</string>
+    <string name="정보수정">물건의 정보를 수정할 수 있습니다</string>
+    <string name="물건정보수정하기">물건 정보 수정하기</string>
 </resources>

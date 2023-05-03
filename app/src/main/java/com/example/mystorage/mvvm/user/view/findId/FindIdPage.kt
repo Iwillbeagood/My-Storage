@@ -17,6 +17,7 @@ import com.example.mystorage.mvvm.user.viewmodel.findId.FindIdViewModelFactory
 import com.example.mystorage.utils.ActivityUtil
 import com.example.mystorage.utils.ActivityUtil.goToNextActivity
 import com.example.mystorage.utils.Constants.TAG
+import com.example.mystorage.utils.FocusChangeListener
 import com.example.mystorage.utils.NaverSMSManager
 import java.util.*
 
@@ -35,6 +36,10 @@ class FindIdPage : AppCompatActivity(), FindIdIView, View.OnClickListener {
         binding.authenticationBtnInFindId.setOnClickListener(this)
         binding.findIdBtn.setOnClickListener(this)
         binding.findIdBack.setOnClickListener(this)
+
+        FocusChangeListener.setEditTextFocusChangeListener(binding.phoneEditInFindId, binding.idLayout)
+        FocusChangeListener.setEditTextFocusChangeListener(binding.authenticationEditInFindId, binding.authenticationLayoutInFindId)
+
     }
 
     override fun onFindIdSuccess(message: String?) {

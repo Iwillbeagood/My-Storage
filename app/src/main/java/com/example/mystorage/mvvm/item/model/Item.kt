@@ -5,10 +5,12 @@ import androidx.databinding.BaseObservable
 
 class Item(
     private var itemname: String?,
-    private var itemimage: String?,
+    private var itemimage: Pair<String, String>?,
     private var itemplace: String?,
     private var itemstore: String?,
-    private var itemcount: String?
+    private var itemcount: String?,
+    private var originname: String?,
+    private var originimage: String?
 ) : IItem, BaseObservable() {
     override fun getItemname(): String? {
         return itemname
@@ -18,11 +20,11 @@ class Item(
         this.itemname = itemname
     }
 
-    override fun getItemimage(): String? {
+    override fun getItemimage(): Pair<String, String>? {
         return itemimage
     }
 
-    override fun setItemimage(itemimage: String) {
+    override fun setItemimage(itemimage: Pair<String, String>?) {
         this.itemimage = itemimage
     }
 
@@ -48,6 +50,22 @@ class Item(
 
     override fun setItemcount(itemcount: String) {
         this.itemcount = itemcount
+    }
+
+    override fun getOriginname(): String? {
+        return originname
+    }
+
+    override fun setOriginname(originname: String) {
+        this.originname = originname
+    }
+
+    override fun getOriginimage(): String? {
+       return originimage
+    }
+
+    override fun setOriginimage(originimage: String) {
+        this.originimage = originimage
     }
 
     override fun itemIsValid(): Pair<Boolean, String> {

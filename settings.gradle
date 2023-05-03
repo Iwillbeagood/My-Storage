@@ -15,3 +15,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "My Storage"
 include ':app'
+
+include ':java'
+include ':opencv'

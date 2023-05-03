@@ -17,6 +17,7 @@ import com.example.mystorage.mvvm.user.viewmodel.changePassword.ChangeViewModelF
 import com.example.mystorage.mvvm.user.viewmodel.findId.FindIdViewModelFactory
 import com.example.mystorage.utils.ActivityUtil.goToNextActivity
 import com.example.mystorage.utils.Constants.TAG
+import com.example.mystorage.utils.FocusChangeListener
 import com.example.mystorage.utils.NaverSMSManager
 import java.util.*
 
@@ -35,6 +36,14 @@ class ChangePage : AppCompatActivity(), ChangeIView, View.OnClickListener {
         binding.authenticationBtnInChange.setOnClickListener(this)
         binding.changePasswordBtn.setOnClickListener(this)
         binding.changeBack.setOnClickListener(this)
+
+        FocusChangeListener.setEditTextFocusChangeListener(binding.idEditInChange, binding.idLayoutInChange)
+        FocusChangeListener.setEditTextFocusChangeListener(binding.passwordChangeEdit, binding.passwordLayoutInChange)
+        FocusChangeListener.setEditTextFocusChangeListener(binding.passwordCheckEdit, binding.passwordLayoutInChange)
+        FocusChangeListener.setEditTextFocusChangeListener(binding.phoneEditInChange, binding.phoneLayoutInChange)
+        FocusChangeListener.setEditTextFocusChangeListener(binding.authenticationEditInChange, binding.authenticationLayoutInChange)
+
+
     }
 
     override fun onChangeSuccess(message: String?) {

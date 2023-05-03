@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface ItemCountUpdateApiService {
     @FormUrlEncoded
-    @POST("/item/countUpdate.php")
+    @POST("/item/count-update.php")
     @Headers(
         "accept: application/json",
         "content-type: application/x-www-form-urlencoded; charset=utf-8"

@@ -16,7 +16,6 @@ import com.example.mystorage.utils.Constants.TAG
 
 class HomeNameAdapter(private val data: List<String>, private val type: String) : RecyclerView.Adapter<HomeNameAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeNameAdapter.ViewHolder {
-        Log.d(TAG, "HomeNameAdapter - onCreateViewHolder() called")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_user_strname, parent, false)
         return HomeNameAdapter.ViewHolder(view)
     }

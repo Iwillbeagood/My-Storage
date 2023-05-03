@@ -19,10 +19,12 @@ import com.example.mystorage.mvvm.user.view.signIn.SignInPage
 import com.example.mystorage.mvvm.user.view.login.LoginIView
 import com.example.mystorage.mvvm.user.viewmodel.login.LoginViewModel
 import com.example.mystorage.mvvm.user.viewmodel.login.LoginViewModelFactory
+import com.example.mystorage.mvvm.userhome.view.UserHomeActivity
 import com.example.mystorage.retrofit.retrofitManager.RetrofitManager
 import com.example.mystorage.utils.ActivityUtil.goToNextActivity
 import com.example.mystorage.utils.App
 import com.example.mystorage.utils.Constants.TAG
+import com.example.mystorage.utils.FocusChangeListener
 import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
@@ -42,6 +44,9 @@ class MainActivity : AppCompatActivity(), LoginIView, View.OnClickListener {
         binding.findIdView.setOnClickListener(this)
         binding.signInView.setOnClickListener(this)
         binding.LoginBtn.setOnClickListener(this)
+
+        FocusChangeListener.setEditTextFocusChangeListener(binding.idEdit, binding.idLayout)
+        FocusChangeListener.setEditTextFocusChangeListener(binding.passwordEdit, binding.passwordLayout)
 
         // set status bar to transparent
         fun Activity.setStatusBarTransparent() {
@@ -137,7 +142,7 @@ class MainActivity : AppCompatActivity(), LoginIView, View.OnClickListener {
             }
             "false" -> {
                 // 초반 설정을 완료하지 못했음으로 바로 설정 페이지로 이동
-                goToNextActivity(this, UserInformActivity())
+                goToNextActivity(this, UserHomeActivity())
             }
         }
     }

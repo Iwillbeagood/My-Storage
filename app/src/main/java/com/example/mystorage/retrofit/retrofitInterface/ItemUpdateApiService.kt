@@ -1,25 +1,22 @@
 package com.example.mystorage.retrofit.retrofitInterface
 
 import com.example.mystorage.retrofit.response.ApiResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ItemUpdateApiService {
-    @FormUrlEncoded
+    @Multipart
     @POST("/item/update.php")
-    @Headers(
-        "accept: application/json",
-        "content-type: application/x-www-form-urlencoded; charset=utf-8"
-    )
     fun updateItem(
-        @Field("userid") userid: String,
-        @Field("itemname") itemname: String,
-        @Field("itemimage") itemimage: String,
-        @Field("itemplace") itemplace: String,
-        @Field("itemstore") itemstore: String,
-        @Field("itemcount") itemcount: Int
+        @Part("userid") userid: RequestBody,
+        @Part("itemname") itemname: RequestBody,
+        @Part itemimage: MultipartBody.Part?,
+        @Part("itemplace") itemplace: RequestBody,
+        @Part("itemstore") itemstore: RequestBody,
+        @Part("itemcount") itemcount: RequestBody,
+        @Part("originname") originname: RequestBody,
+        @Part("originimage") originimage: RequestBody
     ): Call<ApiResponse>
 }

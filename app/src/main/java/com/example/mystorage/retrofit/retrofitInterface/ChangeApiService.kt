@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface ChangeApiService {
     @FormUrlEncoded
-    @POST("user/changePassword.php")
+    @POST("user/change-password.php")
     @Headers(
         "accept: application/json",
         "content-type: application/x-www-form-urlencoded; charset=utf-8"

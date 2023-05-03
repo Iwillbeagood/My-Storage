@@ -23,7 +23,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".UserInformActivity"
+            android:name=".mvvm.userhome.view.UserHomeActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

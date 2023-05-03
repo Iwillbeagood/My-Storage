@@ -2,11 +2,13 @@ package com.example.mystorage.retrofit.retrofitManager
 
 import com.example.mystorage.retrofit.retrofitInterface.*
 import com.example.mystorage.utils.Constants
+import com.example.mystorage.utils.Constants.IP_ADDRESS
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 class RetrofitManager private constructor() {
@@ -19,7 +21,7 @@ class RetrofitManager private constructor() {
             .build()
 
         private val retrofit = Retrofit.Builder()
-            .baseUrl("http://${Constants.IP_ADDRESS}/")
+            .baseUrl("http://${IP_ADDRESS}/")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .client(okHttpClient)
             .build()
@@ -39,6 +41,14 @@ class RetrofitManager private constructor() {
 
         fun getChangeApiService(): ChangeApiService {
             return retrofit.create(ChangeApiService::class.java)
+        }
+
+        fun getSignOutApiService(): SignOutApiService {
+            return retrofit.create(SignOutApiService::class.java)
+        }
+
+        fun getUserInfoApiService(): UserInfoApiService {
+            return retrofit.create(UserInfoApiService::class.java)
         }
 
         fun getItemAddApiService(): ItemAddApiService {
@@ -71,6 +81,10 @@ class RetrofitManager private constructor() {
 
         fun getUserHomeInfoLoadApiService(): UserHomeInfoLoadApiService {
             return retrofit.create(UserHomeInfoLoadApiService::class.java)
+        }
+
+        fun getUserHomeInfoChangeApiService(): UserHomeInfoChangeApiService {
+            return retrofit.create(UserHomeInfoChangeApiService::class.java)
         }
     }
 }

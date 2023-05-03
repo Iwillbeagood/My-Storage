@@ -17,6 +17,7 @@ import com.example.mystorage.mvvm.user.viewmodel.signIn.SignInViewModelFactory
 import com.example.mystorage.utils.ActivityUtil
 import com.example.mystorage.utils.ActivityUtil.goToNextActivity
 import com.example.mystorage.utils.Constants.TAG
+import com.example.mystorage.utils.FocusChangeListener
 
 import com.example.mystorage.utils.NaverSMSManager
 import java.util.*
@@ -39,6 +40,13 @@ class SignInPage : AppCompatActivity(), SignInIView, View.OnClickListener {
         binding.authenticationBtnInSignIn.setOnClickListener(this)
         binding.signIntBtn.setOnClickListener(this)
         binding.signInBack.setOnClickListener(this)
+
+        FocusChangeListener.setEditTextFocusChangeListener(binding.nickNameEdit, binding.nickNameLayout)
+        FocusChangeListener.setEditTextFocusChangeListener(binding.idEditInSignIn, binding.idLayoutInSignIn)
+        FocusChangeListener.setEditTextFocusChangeListener(binding.passwordEditInSignIn, binding.passwordLayoutInSignIn)
+        FocusChangeListener.setEditTextFocusChangeListener(binding.passwordCheckEditInSignIn, binding.passwordCheckLayoutInSignIn)
+        FocusChangeListener.setEditTextFocusChangeListener(binding.phoneEditInSignIn, binding.phoneLayoutInSignIn)
+        FocusChangeListener.setEditTextFocusChangeListener(binding.authenticationEditInSignIn, binding.authenticationLayoutInSignIn)
     }
 
     override fun onSignInSuccess(message: String?) {

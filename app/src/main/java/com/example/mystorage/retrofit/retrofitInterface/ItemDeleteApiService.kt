@@ -16,6 +16,7 @@ interface ItemDeleteApiService {
     )
     fun deleteItem(
         @Field("userid") userid: String,
-        @Field("itemname") itemname: String
+        @Field("itemname") itemname: String,
+        @Field("itemimage") itemimage: String?
     ): Call<ApiResponse>
 }
