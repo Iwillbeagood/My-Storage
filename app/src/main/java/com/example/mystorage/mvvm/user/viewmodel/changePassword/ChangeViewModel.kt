@@ -4,7 +4,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.example.mystorage.retrofit.response.ApiResponse
+import com.example.mystorage.retrofit.model.ApiResponse
 import com.example.mystorage.mvvm.user.model.user.User
 import com.example.mystorage.mvvm.user.view.changePassword.ChangeIView
 import com.example.mystorage.retrofit.retrofitManager.RetrofitManager

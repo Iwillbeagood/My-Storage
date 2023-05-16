@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.mystorage.MainActivity
@@ -14,12 +13,12 @@ import com.example.mystorage.R
 import com.example.mystorage.databinding.ActivitySignInPageBinding
 import com.example.mystorage.mvvm.user.viewmodel.signIn.SignInViewModel
 import com.example.mystorage.mvvm.user.viewmodel.signIn.SignInViewModelFactory
-import com.example.mystorage.utils.ActivityUtil
 import com.example.mystorage.utils.ActivityUtil.goToNextActivity
 import com.example.mystorage.utils.Constants.TAG
+import com.example.mystorage.utils.CustomToast
 import com.example.mystorage.utils.FocusChangeListener
 
-import com.example.mystorage.utils.NaverSMSManager
+import com.example.mystorage.retrofit.retrofitManager.NaverSMSManager
 import java.util.*
 
 
@@ -51,13 +50,13 @@ class SignInPage : AppCompatActivity(), SignInIView, View.OnClickListener {
 
     override fun onSignInSuccess(message: String?) {
         Log.d(TAG, "SignInPage - onSignInSuccess() called")
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        CustomToast.createToast(this, message.toString()).show()
         goToNextActivity(this, mainActivity)
     }
 
     override fun onSignInError(message: String?) {
         Log.d(TAG, "SignInPage - onSignInError() called")
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        CustomToast.createToast(this, message.toString()).show()
     }
 
     // 전화번호의 Text 를 바꿨으면 무조건 인증번호를 다시 받아야 함
@@ -68,28 +67,40 @@ class SignInPage : AppCompatActivity(), SignInIView, View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.authenticationBtnInSignIn -> {
-                Log.d(TAG, "SignInPage - authenticationBtnInSignIn onClick() called")
-                phoneTextChanged = true
-                sendSMS()
+                if (binding.authenticationBtnInSignIn.isEnabled) {
+                    binding.authenticationBtnInSignIn.isEnabled = false
+                    Log.d(TAG, "SignInPage - authenticationBtnInSignIn onClick() called")
+                    phoneTextChanged = true
+                    sendSMS()
+                    binding.authenticationBtnInSignIn.isEnabled = true
+                }
             }
             R.id.signIntBtn -> {
-                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-                if (phoneTextChanged || binding.phoneEditInSignIn.text.isNullOrBlank()) {
-                    Log.d(TAG, "SignInPage - signIntBtn onClick() called")
-                    binding.viewModel!!.onSignIn()
-                } else {
-                    Toast.makeText(this, "전화번호가 변경되었습니다. 인증번호를 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
+                if (binding.signIntBtn.isEnabled) {
+                    binding.signIntBtn.isEnabled = false
+                    val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+                    if (phoneTextChanged || binding.phoneEditInSignIn.text.isNullOrBlank()) {
+                        Log.d(TAG, "SignInPage - signIntBtn onClick() called")
+                        binding.viewModel!!.onSignIn()
+                    } else {
+                        CustomToast.createToast(this, "전화번호가 변경되었습니다. 인증번호를 다시 입력해주세요.").show()
+                    }
+                    binding.signIntBtn.isEnabled = true
                 }
             }
             R.id.signInBack -> {
-                Log.d(TAG, "SignInPage - signInBack onClick() called")
-                goToNextActivity(this, mainActivity)
+                if (binding.signInBack.isEnabled) {
+                    binding.signInBack.isEnabled = false
+                    Log.d(TAG, "SignInPage - signInBack onClick() called")
+                    goToNextActivity(this, mainActivity)
+                    binding.signInBack.isEnabled = true
+                }
             }
         }
     }
 
-    private fun sendSMS() {
+    override fun sendSMS() {
         val authenticationNum = random.nextInt(900000) + 100000
         val naverSMSManager = NaverSMSManager.getInstance(this)
 

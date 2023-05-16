@@ -4,4 +4,5 @@ interface FindIdIView {
     fun onFindIdSuccess(message: String?)
     fun onFindIdError(message: String?)
     fun phoneTextChange()
+    fun sendSMS()
 }

@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.mystorage.mvvm.item.model.Item
 import com.example.mystorage.mvvm.item.view.itemAdd.ItemAddDialogIView
-import com.example.mystorage.retrofit.response.ApiResponse
+import com.example.mystorage.retrofit.model.ApiResponse
 import com.example.mystorage.retrofit.retrofitManager.RetrofitManager
 import com.example.mystorage.utils.App
 import com.example.mystorage.utils.BitmapConverter
@@ -38,12 +38,12 @@ class ItemAddViewModel(private val itemAddDialogIView: ItemAddDialogIView): View
         item.setItemimage(Pair(type, itemImage))
     }
 
-    override fun onItemAdd(type: String) {
+    override fun onItemAdd(type: String, itemid: Int) {
         if (!item.itemIsValid().first) {
             itemAddDialogIView.onItemAddSuccess(item.itemIsValid().second)
         } else {
             if (type == "add") getResponseOnItemAdd()
-            else if (type == "countUpdate") getResponseOnItemCountUpdate()
+            else if (type == "countUpdate") getResponseOnItemCountUpdate(itemid)
         }
     }
 
@@ -54,6 +54,7 @@ class ItemAddViewModel(private val itemAddDialogIView: ItemAddDialogIView): View
         val file: File?
         val stream = ByteArrayOutputStream()
         var quality = 100
+        var itemimage: MultipartBody.Part? = null
 
         // 이미지를 선택한 방법에 따라 분기 처리
         when (item.getItemimage()?.first) {
@@ -71,16 +72,20 @@ class ItemAddViewModel(private val itemAddDialogIView: ItemAddDialogIView): View
             }
         }
 
-        // 이미지 크기가 2MB 보다 큰 경우
-        while (bitmap != null && stream.toByteArray().size / 1024 > 2048) {
-            quality -= 10
-            stream.reset()
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
-        }
+        if (bitmap != null) {
+            // 이미지 크기가 2MB 보다 큰 경우
+            while (stream.toByteArray().size / 1024 > 2048) {
+                quality -= 10
+                stream.reset()
+                bitmap.compress(Bitmap.CompressFormat.JPEG, quality, stream)
+            }
 
-        val byteArray = stream.toByteArray()
-        val requestBody = byteArray.toRequestBody("image/*".toMediaTypeOrNull())
-        val itemimage = MultipartBody.Part.createFormData("itemimage", "image.jpg", requestBody)
+            val byteArray = stream.toByteArray()
+            val requestBody = byteArray.toRequestBody("image/*".toMediaTypeOrNull())
+            itemimage = MultipartBody.Part.createFormData("itemimage", "image.jpg", requestBody)
+        } else {
+            itemimage = null
+        }
 
         val call = api.addItem(
             App.prefs.getString("userid", "").toRequestBody("text/plain".toMediaTypeOrNull()),
@@ -108,14 +113,14 @@ class ItemAddViewModel(private val itemAddDialogIView: ItemAddDialogIView): View
         })
     }
 
-    override fun getResponseOnItemCountUpdate() {
+    override fun getResponseOnItemCountUpdate(itemid: Int) {
         Log.d(TAG, "ItemAddViewModel - getResponseOnItemUpdate() called")
         // 아이템의 이름이 중복된다면 이미 존재하는 아이템의 개수를 입력한 개수만큼 증가
         val api = RetrofitManager.getItemCountUpdateApiService()
 
         val call = api.updateItemCount(
             App.prefs.getString("userid", ""),
-            item.getItemname().toString(),
+            itemid,
             item.getItemcount().toString().toInt()
         )
 
@@ -147,7 +152,7 @@ class ItemAddViewModel(private val itemAddDialogIView: ItemAddDialogIView): View
                 itemAddDialogIView.onItemAddError(message)
             }
             else -> {
-                itemAddDialogIView.onItemCountUpdate(message.replace("\\n", "\n"))
+                itemAddDialogIView.onItemCountUpdate(response.status.toInt(), message.replace("\\n", "\n"))
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.example.mystorage.mvvm.user.view.signOut
 
-import com.example.mystorage.retrofit.response.ApiResponse
+import com.example.mystorage.retrofit.model.ApiResponse
 
 interface SignOutIView {
     fun onSignOutSuccess(message: String?)

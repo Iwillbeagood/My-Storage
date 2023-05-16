@@ -11,8 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">#FFFFFF</item>
-        <!-- Customize your theme here. -->
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
     </style>
 
     <style name="my_storage">
@@ -30,6 +29,12 @@
         <item name="android:windowExitAnimation">@anim/slide_out_down</item>
     </style>
 
+
+    <style name="DialogLeftAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_right</item>
+    </style>
+
     <style name="MyChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:textAlignment">center</item>
         <item name="android:backgroundTint">@color/chip_color</item>
@@ -43,6 +48,10 @@
         <item name="tabIndicatorColor">@color/main</item>
         <item name="tabSelectedTextColor">@color/main</item>
         <item name="tabBackground">@drawable/tab_background</item>
+    </style>
+
+    <style name="CheckedCheckboxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:background">@drawable/checked_checkbox_background</item>
     </style>
 
 </resources>

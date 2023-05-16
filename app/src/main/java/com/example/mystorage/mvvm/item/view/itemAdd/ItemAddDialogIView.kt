@@ -8,5 +8,5 @@ interface ItemAddDialogIView {
     fun addImageURL(imageUri: Uri)
     fun onItemAddSuccess(message: String?)
     fun onItemAddError(message: String?)
-    fun onItemCountUpdate(message: String?)
+    fun onItemCountUpdate(itemid: Int, message: String?)
 }

@@ -13,7 +13,7 @@
         android:id="@+id/searchLayoutInList"
         android:layout_width="350dp"
         android:layout_height="49dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bolder"
         android:elevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,10 +24,10 @@
             android:id="@+id/searchEditInList"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:paddingStart="20dp"
             android:background="@null"
             android:hint="@string/물건검색"
             android:minHeight="48dp"
+            android:paddingStart="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,14 +37,104 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginEnd="10dp"
+            android:background="@drawable/ic_baseline_menu_24"
             android:clickable="true"
             android:focusable="true"
-            android:background="@drawable/ic_baseline_menu_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.48"
-            />
+            app:layout_constraintVertical_bias="0.48" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/longClickMode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/searchLayoutInList">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/longClickMode1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="3dp" />
+
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:buttonTint="@color/main"
+                android:gravity="center_horizontal|center"
+                android:text="전체"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/searchSpinner"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:minHeight="48dp"
+                android:paddingStart="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/checkbox"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/moveSelectedItem"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="이동하기"
+                android:clickable="true"
+                android:focusable="true"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/searchSpinner"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/deleteSelectedItem"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/delete_svgrepo_com"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/exitLongClickMode"
+                app:layout_constraintStart_toEndOf="@+id/moveSelectedItem"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/exitLongClickMode"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@drawable/ic_baseline_close_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/gray"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -52,8 +142,22 @@
         android:id="@+id/recyclerViewGrid"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/longClickMode" />
+
+
+    <TextView
+        android:id="@+id/emptyHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="148dp"
+        android:text="@string/빈페이지"
+        android:visibility="invisible"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchLayoutInList" />
 
 

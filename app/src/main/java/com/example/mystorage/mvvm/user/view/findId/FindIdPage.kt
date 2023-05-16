@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.mystorage.MainActivity
@@ -14,11 +13,11 @@ import com.example.mystorage.R
 import com.example.mystorage.databinding.ActivityFindIdPageBinding
 import com.example.mystorage.mvvm.user.viewmodel.findId.FindIdViewModel
 import com.example.mystorage.mvvm.user.viewmodel.findId.FindIdViewModelFactory
-import com.example.mystorage.utils.ActivityUtil
 import com.example.mystorage.utils.ActivityUtil.goToNextActivity
 import com.example.mystorage.utils.Constants.TAG
+import com.example.mystorage.utils.CustomToast
 import com.example.mystorage.utils.FocusChangeListener
-import com.example.mystorage.utils.NaverSMSManager
+import com.example.mystorage.retrofit.retrofitManager.NaverSMSManager
 import java.util.*
 
 class FindIdPage : AppCompatActivity(), FindIdIView, View.OnClickListener {
@@ -44,13 +43,14 @@ class FindIdPage : AppCompatActivity(), FindIdIView, View.OnClickListener {
 
     override fun onFindIdSuccess(message: String?) {
         Log.d(TAG, "FindIdPage - onFindIdSuccess() called")
+        CustomToast.createToast(this, message.toString()).show()
         binding.findIdResultText.text = message
         binding.findIdResult.visibility = View.VISIBLE
     }
 
     override fun onFindIdError(message: String?) {
         Log.d(TAG, "FindIdPage - onFindIdError() called")
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        CustomToast.createToast(this, message.toString()).show()
     }
 
     override fun phoneTextChange() {
@@ -60,27 +60,39 @@ class FindIdPage : AppCompatActivity(), FindIdIView, View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.authenticationBtnInFindId -> {
-                phoneTextChanged = true
-                sendSMS()
+                if (binding.authenticationBtnInFindId.isEnabled) {
+                    binding.authenticationBtnInFindId.isEnabled = false
+                    phoneTextChanged = true
+                    sendSMS()
+                    binding.authenticationBtnInFindId.isEnabled = true
+                }
             }
             R.id.findIdBtn -> {
-                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-                if (phoneTextChanged) {
-                    Log.d(TAG, "FindIdPage - findIdBtn onClick() called")
-                    binding.viewModel!!.onFindId()
-                } else {
-                    Toast.makeText(this, "전화번호가 변경되었습니다. 인증번호를 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
+                if (binding.findIdBtn.isEnabled) {
+                    binding.findIdBtn.isEnabled = false
+                    val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+                    if (phoneTextChanged) {
+                        Log.d(TAG, "FindIdPage - findIdBtn onClick() called")
+                        binding.viewModel!!.onFindId()
+                    } else {
+                        CustomToast.createToast(this, "전화번호가 변경되었습니다. 인증번호를 다시 입력해주세요.").show()
+                    }
+                    binding.findIdBtn.isEnabled = true
                 }
             }
             R.id.findIdBack -> {
-                Log.d(TAG, "FindIdPage - findIdBack onClick() called")
-                goToNextActivity(this, MainActivity())
+                if (binding.findIdBack.isEnabled) {
+                    binding.findIdBack.isEnabled = false
+                    Log.d(TAG, "FindIdPage - findIdBack onClick() called")
+                    goToNextActivity(this, MainActivity())
+                    binding.findIdBack.isEnabled = true
+                }
             }
         }
     }
 
-    private fun sendSMS() {
+    override fun sendSMS() {
         val authenticationNum = random.nextInt(900000) + 100000
         val naverSMSManager = NaverSMSManager.getInstance(this)
         naverSMSManager.sendSMS(

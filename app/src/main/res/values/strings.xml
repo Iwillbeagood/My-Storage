@@ -32,4 +32,6 @@
     <string name="구조입력">물건을 넣을 집 구조 정보를 입력해 주세요</string>
     <string name="정보수정">물건의 정보를 수정할 수 있습니다</string>
     <string name="물건정보수정하기">물건 정보 수정하기</string>
+    <string name="사용완료비우기버튼">사용 완료 물건 비우기</string>
+    <string name="빈페이지">물건이 없습니다. 물건을 추가해주세요</string>
 </resources>

@@ -22,6 +22,7 @@ import com.example.mystorage.databinding.FragmentCameraGalleryDialogBinding
 import com.example.mystorage.utils.BitmapConverter
 import com.example.mystorage.utils.Constants
 import com.example.mystorage.utils.Constants.TAG
+import com.example.mystorage.utils.CustomToast
 import com.example.mystorage.utils.PermissionUtil
 import com.example.mystorage.utils.PermissionUtil.CAMERA_PERMISSION_REQUEST_CODE
 import com.example.mystorage.utils.PermissionUtil.READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE
@@ -55,32 +56,18 @@ class CameraGalleryDialogFragment : DialogFragment(), View.OnClickListener {
             R.id.cameraLayout -> {
                 if (binding.cameraLayout.isEnabled) {
                     binding.cameraLayout.isEnabled = false
-                    PermissionUtil.handlePermissionsResult(requireActivity(), 100, arrayOf(Manifest.permission.CAMERA), intArrayOf(PackageManager.PERMISSION_GRANTED),
-                        onPermissionGranted = { PermissionUtil.openCamera(requireActivity()) },
-                        onPermissionDenied = {
-                            if (PermissionUtil.shouldShowCameraPermissionRationale(requireActivity())) {
-                                Toast.makeText(requireContext(), "카메라 권한이 필요합니다", Toast.LENGTH_SHORT).show()
-                            } else {
-                                PermissionUtil.requestCameraPermission(requireActivity())
-                            }
-                        }
-                    )
+                    PermissionUtil.handlePermissionsResult(requireActivity(), 100,
+                        arrayOf(Manifest.permission.CAMERA),
+                        intArrayOf(PackageManager.PERMISSION_GRANTED))
                     binding.cameraLayout.isEnabled = true
                 }
             }
             R.id.galleryLayout -> {
                 if (binding.galleryLayout.isEnabled) {
                     binding.galleryLayout.isEnabled = false
-                    PermissionUtil.handlePermissionsResult(requireActivity(), 200, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), intArrayOf(PackageManager.PERMISSION_GRANTED),
-                        onPermissionGranted = { PermissionUtil.openGallery(requireActivity()) },
-                        onPermissionDenied = {
-                            if (PermissionUtil.shouldShowReadExternalStoragePermissionRationale(requireActivity())) {
-                                Toast.makeText(requireContext(), "외부 저장소 읽기 권한이 필요합니다", Toast.LENGTH_SHORT).show()
-                            } else {
-                                PermissionUtil.requestReadExternalStoragePermission(requireActivity())
-                            }
-                        }
-                    )
+                    PermissionUtil.handlePermissionsResult(requireActivity(), 200,
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        intArrayOf(PackageManager.PERMISSION_GRANTED))
                     binding.galleryLayout.isEnabled = true
                 }
             }

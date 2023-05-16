@@ -8,17 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mystorage.MainPage
 import com.example.mystorage.R
 import com.example.mystorage.databinding.FragmentItemStructureBinding
-import com.example.mystorage.retrofit.response.UserItem
-import com.example.mystorage.retrofit.response.UserItemResponse
+import com.example.mystorage.retrofit.model.UserItem
+import com.example.mystorage.retrofit.model.UserItemResponse
 import com.example.mystorage.retrofit.retrofitManager.RetrofitManager
 import com.example.mystorage.utils.App
 import com.example.mystorage.utils.Constants.TAG
-import com.example.mystorage.utils.adapter.StrAdapter
+import com.example.mystorage.utils.CustomToast
+import com.example.mystorage.adapter.StrAdapter
 import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
@@ -39,6 +39,10 @@ class ItemStructureFragment : Fragment(), ItemStructureIView, View.OnClickListen
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        view.tag = "list_str_fragment_tag"
+    }
     override fun onResume() {
         super.onResume()
         itemList.clear()
@@ -108,27 +112,32 @@ class ItemStructureFragment : Fragment(), ItemStructureIView, View.OnClickListen
     override fun itemLoadResponse(response: UserItemResponse) {
         if (response.status == "true") {
             if (!response.data.isNullOrEmpty()) {
+
                 response.data.groupBy { it.itemplace }.map {
                     itemList.add(it.value.toList())
                     placeList.add(it.key.toString())
                 }
                 // 검색 스피너 설정
                 setSearchSpinner(response.data.groupBy { it.itemplace })
+                binding.emptyHint.visibility = View.INVISIBLE
+            } else {
+                binding.emptyHint.visibility = View.VISIBLE
             }
+
         } else {
             Log.d(TAG, "ItemStructureFragment - itemLoadResponse() ${response.message}")
         }
     }
 
     override fun onItemListSuccess(message: String?) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        CustomToast.createToast(requireActivity(), message.toString()).show()
         parentFragmentManager.beginTransaction()
             .replace(R.id.view_pager, ItemStructureFragment())
             .commit()
     }
 
     override fun onItemListError(message: String?) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        CustomToast.createToast(requireActivity(), message.toString()).show()
     }
 
     override fun onClick(v: View?) {

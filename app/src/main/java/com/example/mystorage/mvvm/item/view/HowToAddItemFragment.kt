@@ -31,17 +31,26 @@ class HowToAddItemFragment : DialogFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.ocrLayout -> {
-                Log.d(TAG, "HowToAddItemFragment - ocrLayout onClick() called")
-                dismiss()
-                val autoItemAddFragment = AutoItemAddFragment()
-                autoItemAddFragment.show(parentFragmentManager, "AutoItemAddFragment")
+                if (binding.ocrLayout.isEnabled) {
+                    binding.ocrLayout.isEnabled = false
+                    Log.d(TAG, "HowToAddItemFragment - ocrLayout onClick() called")
+                    dismiss()
+                    val autoItemAddFragment = AutoItemAddFragment()
+                    autoItemAddFragment.show(parentFragmentManager, "AutoItemAddFragment")
+                    binding.ocrLayout.isEnabled = true
+                }
             }
             R.id.selfInputLayout -> {
-                Log.d(TAG, "HowToAddItemFragment - selfInputLayout onClick() called")
-                dismiss()
-                val itemAddDialogFragment = ItemAddDialogFragment()
-                itemAddDialogFragment.show(parentFragmentManager, "ItemAddDialogFragment")
-            }
+                if (binding.selfInputLayout.isEnabled) {
+                    binding.selfInputLayout.isEnabled = false
+                    Log.d(TAG, "HowToAddItemFragment - selfInputLayout onClick() called")
+                    dismiss()
+                    val itemAddDialogFragment = ItemAddDialogFragment()
+                    itemAddDialogFragment.show(parentFragmentManager, "ItemAddDialogFragment")
+                    binding.selfInputLayout.isEnabled = true
+                }
+
+             }
         }
     }
 

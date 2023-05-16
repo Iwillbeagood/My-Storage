@@ -1,6 +1,6 @@
 package com.example.mystorage.mvvm.user.viewmodel.changePassword
 
-import com.example.mystorage.retrofit.response.ApiResponse
+import com.example.mystorage.retrofit.model.ApiResponse
 
 interface ChangeIViewModel {
     fun onChange()

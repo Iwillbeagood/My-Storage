@@ -1,7 +1,7 @@
 package com.example.mystorage.mvvm.item.view.itemStructure
 
-import com.example.mystorage.retrofit.response.UserItem
-import com.example.mystorage.retrofit.response.UserItemResponse
+import com.example.mystorage.retrofit.model.UserItem
+import com.example.mystorage.retrofit.model.UserItemResponse
 
 interface ItemStructureIView {
     fun setRecyclerView()

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".mvvm.userhome.view.UserHomeFragment2">
+    tools:context=".mvvm.userHome.view.UserHomeFragment2">
 
     <data>
         <variable
             name="viewModel"
-            type="com.example.mystorage.mvvm.userhome.viewmodel.UserHomeViewModel" />
+            type="com.example.mystorage.mvvm.userHome.viewmodel.UserHomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

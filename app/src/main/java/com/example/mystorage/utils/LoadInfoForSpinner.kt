@@ -1,6 +1,6 @@
 package com.example.mystorage.utils
 
-import com.example.mystorage.retrofit.response.UserHomeInfoResponse
+import com.example.mystorage.retrofit.model.UserHomeInfoResponse
 import org.json.JSONObject
 
 object LoadInfoForSpinner {
@@ -21,11 +21,11 @@ object LoadInfoForSpinner {
                 items.add(bathName)
             }
 
-            if (response.livingRoomName != "없음") items.add("거실")
-            if (response.kitchenName != "없음") items.add("주방")
-            if (response.storageName != "없음") items.add("창고")
+            if (response.livingRoom != "없음") items.add("거실")
+            if (response.kitchen != "없음") items.add("주방")
+            if (response.storage != "없음") items.add("창고")
 
-            val jsonObjectEtc = JSONObject(response.bathroomNames)
+            val jsonObjectEtc = JSONObject(response.etc_name)
             val etcNames = jsonObjectEtc.getJSONArray("etc_name")
             for (i in 0 until etcNames.length()) {
                 val etcName = etcNames.getString(i)
@@ -53,13 +53,18 @@ object LoadInfoForSpinner {
                 val bathName = bathNames.getString(i)
                 bathItems.add(bathName)
             }
+
+            val jsonObjectEtc = JSONObject(response.etc_name)
+            val etcNames = jsonObjectEtc.getJSONArray("etc_name")
+            val etcItems = mutableListOf<String>()
+            for (i in 0 until etcNames.length()) {
+                val etcName = etcNames.getString(i)
+                etcItems.add(etcName)
+            }
+
             items.add(roomItems)
             items.add(bathItems)
-
-            if (response.etc_name != "없음")
-                items.add(mutableListOf(response.etc_name))
-            else
-                items.add(mutableListOf(""))
+            items.add(etcItems)
         }
         return items
     }

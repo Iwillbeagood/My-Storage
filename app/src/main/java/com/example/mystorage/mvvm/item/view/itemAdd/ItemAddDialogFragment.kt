@@ -1,5 +1,6 @@
 package com.example.mystorage.mvvm.item.view.itemAdd
 
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -9,17 +10,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mystorage.MainPage
 import com.example.mystorage.R
 import com.example.mystorage.databinding.FragmentItemAddDialogBinding
 import com.example.mystorage.mvvm.item.view.CameraGalleryDialogFragment
+import com.example.mystorage.mvvm.item.view.itemList.ItemListFragment
+import com.example.mystorage.mvvm.item.view.itemStructure.ItemStructureFragment
 import com.example.mystorage.mvvm.item.viewmodel.itemAdd.ItemAddViewModel
 import com.example.mystorage.mvvm.item.viewmodel.itemAdd.ItemAddViewModelFactory
-import com.example.mystorage.retrofit.response.UserHomeInfoResponse
+import com.example.mystorage.retrofit.model.UserHomeInfoResponse
+import com.example.mystorage.retrofit.retrofitManager.LoadUserHomeInfoManager
 import com.example.mystorage.retrofit.retrofitManager.RetrofitManager
 import com.example.mystorage.utils.*
 import com.example.mystorage.utils.Constants.TAG
@@ -74,28 +76,22 @@ class ItemAddDialogFragment : DialogFragment(), ItemAddDialogIView, View.OnClick
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        val api = RetrofitManager.getUserHomeInfoLoadApiService()
-        val call = api.loadUserHomeInfo(App.prefs.getString("userid", ""))
-        call.enqueue(object : Callback<UserHomeInfoResponse> {
-            override fun onResponse(call: Call<UserHomeInfoResponse>, response: Response<UserHomeInfoResponse>) {
-                if (response.body() != null) {
-                    try {
-                        val loadedItems = LoadInfoForSpinner.userHomeInfoLoadResponse(response.body()!!)
-                        items.addAll(loadedItems)
-                        // 아무것도 선택 안했을 시 기본 설정
-                        binding.viewModel!!.setItemPlace(items[0])
-                        adapter.notifyDataSetChanged()
-                    } catch (e: JSONException) {
-                        onItemAddError("응답 결과 파싱 중 오류가 발생했습니다")
-                    }
-                }
-            }
-            override fun onFailure(call: Call<UserHomeInfoResponse>, t: Throwable) {
-                onItemAddError("통신 실패")
-                call.cancel()
-            }
-        })
+        // 스피너 아이템을 서버로부터 불러와서 설정
+        val loadInfoManager = LoadUserHomeInfoManager.getInstance(requireContext())
 
+        loadInfoManager.itemDelete(
+            object : LoadUserHomeInfoManager.OnLoadInfoCompleteListener {
+                override fun onSuccess(loadedItems: MutableList<String>) {
+                    items.addAll(loadedItems)
+                    adapter.notifyDataSetChanged()
+                }
+
+                override fun onError(message: String) {
+                    onItemAddError(message)
+                }
+
+            }
+        )
     }
 
     override fun addImageBitmap(imageBitmap: Bitmap) {
@@ -113,17 +109,25 @@ class ItemAddDialogFragment : DialogFragment(), ItemAddDialogIView, View.OnClick
 
     override fun onItemAddSuccess(message: String?) {
         Log.d(TAG, "ItemAddDialogFragment - onItemAddSuccess() called")
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        CustomToast.createToast(requireActivity(), message.toString()).show()
         dismiss()
-        (activity as? MainPage)?.restartItemListFragment()
+
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        val itemListFragment = parentFragmentManager.findFragmentByTag("android:switcher:" + R.id.view_pager + ":1") as ItemListFragment?
+        itemListFragment?.onResume() // itemListFragment 인스턴스를 가져와서 onResume 메소드 호출
+        val itemStrFragment = parentFragmentManager.findFragmentByTag("android:switcher:" + R.id.view_pager + ":0") as ItemStructureFragment?
+        itemStrFragment?.onResume()
     }
 
     override fun onItemAddError(message: String?) {
         Log.d(TAG, "ItemAddDialogFragment - onItemAddError() called")
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        CustomToast.createToast(requireActivity(), message.toString()).show()
     }
 
-    override fun onItemCountUpdate(message: String?) {
+    override fun onItemCountUpdate(itemid: Int, message: String?) {
         Log.d(TAG, "ItemAddDialogFragment - onItemUpdate() called")
 
         DialogUtils.showDialog(
@@ -132,7 +136,7 @@ class ItemAddDialogFragment : DialogFragment(), ItemAddDialogIView, View.OnClick
             "확인",
             "취소",
             onPositiveClick = {
-                binding.viewModel!!.onItemAdd("countUpdate")
+                binding.viewModel!!.onItemAdd("countUpdate", itemid)
             },
             onNegativeClick = {
             }
@@ -166,7 +170,7 @@ class ItemAddDialogFragment : DialogFragment(), ItemAddDialogIView, View.OnClick
                 Log.d(TAG, "ItemAddDialogFragment - itemAddBtn onClick() called")
                 if (binding.itemAddBtn.isEnabled) {
                     binding.itemAddBtn.isEnabled = false
-                    binding.viewModel!!.onItemAdd("add")
+                    binding.viewModel!!.onItemAdd("add", 0)
                     binding.itemAddBtn.isEnabled = true
                 }
             }

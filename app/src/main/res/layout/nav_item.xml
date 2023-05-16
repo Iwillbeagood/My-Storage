@@ -43,14 +43,14 @@
         android:background="@android:color/darker_gray"/>
 
     <TextView
-        android:id="@+id/menu_item_change_home"
+        android:id="@+id/menu_item_str_reset"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:text="집 구조 변경 및 추가하기"
+        android:text="구조 재설정하기"
         android:gravity="center"
         />
 
@@ -62,7 +62,7 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:text="집 구조의 이름 변경하기"
+        android:text="구조 이름 변경하기"
         android:gravity="center"
         />
 
@@ -85,14 +85,14 @@
         android:background="@android:color/darker_gray"/>
 
     <TextView
-        android:id="@+id/menu_item_remove_all"
+        android:id="@+id/menu_item_delete_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:text="물건 전부 삭제하기"
+        android:text="창고에 물건 전부 제거하기"
         android:gravity="center"
         />
 

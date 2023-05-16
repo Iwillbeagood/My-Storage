@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.mystorage.mvvm.item.model.Item
 import com.example.mystorage.mvvm.item.view.itemUpdate.ItemUpdateIView
-import com.example.mystorage.retrofit.response.ApiResponse
+import com.example.mystorage.retrofit.model.ApiResponse
 import com.example.mystorage.retrofit.retrofitManager.RetrofitManager
 import com.example.mystorage.utils.*
 import com.example.mystorage.utils.Constants.TAG
@@ -42,15 +42,15 @@ class ItemUpdateViewModel(private val itemUpdateIView: ItemUpdateIView): ViewMod
         item.setItemimage(Pair(type, itemImage))
     }
 
-    override fun onItemUpdate() {
+    override fun onItemUpdate(itemid: Int) {
         if (!item.itemIsValid().first) {
             itemUpdateIView.onItemUpdateSuccess(item.itemIsValid().second)
         } else {
-            getResponseOnItemUpdate()
+            getResponseOnItemUpdate(itemid)
         }
     }
 
-    override fun getResponseOnItemUpdate() {
+    override fun getResponseOnItemUpdate(itemid: Int) {
         Log.d(TAG, "ItemUpdateViewModel - getResponseOnItemUpdate() called")
         val api = RetrofitManager.getItemUpdateApiService()
         val bitmap: Bitmap?
@@ -92,12 +92,12 @@ class ItemUpdateViewModel(private val itemUpdateIView: ItemUpdateIView): ViewMod
 
         val call = api.updateItem(
             App.prefs.getString("userid", "").toRequestBody("text/plain".toMediaTypeOrNull()),
+            itemid.toString().toRequestBody("text/plain".toMediaTypeOrNull()),
             item.getItemname().toString().toRequestBody("text/plain".toMediaTypeOrNull()),
             itemimage,
             item.getItemplace().toString().toRequestBody("text/plain".toMediaTypeOrNull()),
             item.getItemstore().toString().toRequestBody("text/plain".toMediaTypeOrNull()),
             item.getItemcount().toString().toRequestBody("text/plain".toMediaTypeOrNull()),
-            item.getOriginname().toString().toRequestBody("text/plain".toMediaTypeOrNull()),
             item.getOriginimage().toString().toRequestBody("text/plain".toMediaTypeOrNull())
         )
         call.enqueue(object : Callback<ApiResponse> {

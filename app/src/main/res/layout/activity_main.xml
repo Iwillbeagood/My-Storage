@@ -42,7 +42,7 @@
             android:id="@+id/idLayout"
             android:layout_width="342dp"
             android:layout_height="49dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/bolder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

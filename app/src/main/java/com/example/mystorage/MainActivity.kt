@@ -1,29 +1,27 @@
 package com.example.mystorage
 
-import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.mystorage.databinding.ActivityMainBinding
-import com.example.mystorage.retrofit.response.ApiResponse
+import com.example.mystorage.retrofit.model.ApiResponse
 import com.example.mystorage.mvvm.user.view.changePassword.ChangePage
 import com.example.mystorage.mvvm.user.view.findId.FindIdPage
 import com.example.mystorage.mvvm.user.view.signIn.SignInPage
 import com.example.mystorage.mvvm.user.view.login.LoginIView
 import com.example.mystorage.mvvm.user.viewmodel.login.LoginViewModel
 import com.example.mystorage.mvvm.user.viewmodel.login.LoginViewModelFactory
-import com.example.mystorage.mvvm.userhome.view.UserHomeActivity
+import com.example.mystorage.mvvm.userHome.view.UserHomeActivity
 import com.example.mystorage.retrofit.retrofitManager.RetrofitManager
 import com.example.mystorage.utils.ActivityUtil.goToNextActivity
 import com.example.mystorage.utils.App
 import com.example.mystorage.utils.Constants.TAG
+import com.example.mystorage.utils.CustomToast
 import com.example.mystorage.utils.FocusChangeListener
 import org.json.JSONException
 import retrofit2.Call
@@ -48,20 +46,12 @@ class MainActivity : AppCompatActivity(), LoginIView, View.OnClickListener {
         FocusChangeListener.setEditTextFocusChangeListener(binding.idEdit, binding.idLayout)
         FocusChangeListener.setEditTextFocusChangeListener(binding.passwordEdit, binding.passwordLayout)
 
-        // set status bar to transparent
-        fun Activity.setStatusBarTransparent() {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
-
         checkAutoLogin()
     }
 
     override fun onLoginSuccess(message: String?, id: String, password: String) {
         Log.d(TAG, "MainActivity - onLoginSuccess() called")
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
+        CustomToast.createToast(this, message.toString()).show()
 
         App.prefs.setString("userid", id)
         App.prefs.setString("userpassword", password)
@@ -71,29 +61,42 @@ class MainActivity : AppCompatActivity(), LoginIView, View.OnClickListener {
 
     override fun onLoginError(message: String?) {
         Log.d(TAG, "MainActivity - onLoginError() called")
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
+        CustomToast.createToast(this, message.toString()).show()
     }
 
-    fun toast(message: String?) {
-        Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
-    }
 
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.passwordChangeView -> {
-                goToNextActivity(this, ChangePage())
+                if (binding.passwordChangeView.isEnabled) {
+                    binding.passwordChangeView.isEnabled = false
+                    goToNextActivity(this, ChangePage())
+                    binding.passwordChangeView.isEnabled = true
+                }
             }
             R.id.findIdView -> {
-                goToNextActivity(this, FindIdPage())
+                if (binding.findIdView.isEnabled) {
+                    binding.findIdView.isEnabled = false
+                    goToNextActivity(this, FindIdPage())
+                    binding.findIdView.isEnabled = true
+                }
             }
             R.id.signInView -> {
-                goToNextActivity(this, SignInPage())
+                if (binding.signInView.isEnabled) {
+                    binding.signInView.isEnabled = false
+                    goToNextActivity(this, SignInPage())
+                    binding.signInView.isEnabled = true
+                }
             }
             R.id.LoginBtn -> {
-                Log.d(TAG, "MainActivity - loginBtn onClick() called")
-                val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
-                binding.viewModel!!.onLogin()
+                if (binding.LoginBtn.isEnabled) {
+                    binding.LoginBtn.isEnabled = false
+                    Log.d(TAG, "MainActivity - loginBtn onClick() called")
+                    val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+                    binding.viewModel!!.onLogin()
+                    binding.LoginBtn.isEnabled = true
+                }
             }
         }
     }
@@ -122,12 +125,12 @@ class MainActivity : AppCompatActivity(), LoginIView, View.OnClickListener {
                     try {
                         userHomeInfoCheckResponse(response.body()!!)
                     } catch (e: JSONException) {
-                        toast("응답 결과 파싱 중 오류가 발생했습니다.")
+                        onLoginError("응답 결과 파싱 중 오류가 발생했습니다.")
                     }
                 }
             }
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                toast("통신 실패")
+                onLoginError("통신 실패")
                 call.cancel()
             }
         })

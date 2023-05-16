@@ -1,14 +1,17 @@
 package com.example.mystorage.retrofit.retrofitManager
 
-import com.example.mystorage.retrofit.retrofitInterface.*
-import com.example.mystorage.utils.Constants
+import com.example.mystorage.retrofit.retrofitInterface.item.*
+import com.example.mystorage.retrofit.retrofitInterface.usedItem.UsedItemLoadApiService
+import com.example.mystorage.retrofit.retrofitInterface.item.ItemMoveApiService
+import com.example.mystorage.retrofit.retrofitInterface.usedItem.UsedItemMoveApiService
+import com.example.mystorage.retrofit.retrofitInterface.user.*
+import com.example.mystorage.retrofit.retrofitInterface.userInfo.*
 import com.example.mystorage.utils.Constants.IP_ADDRESS
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 class RetrofitManager private constructor() {
@@ -63,12 +66,32 @@ class RetrofitManager private constructor() {
             return retrofit.create(ItemUpdateApiService::class.java)
         }
 
+        fun getItemPlaceUpdateApiService(): ItemPlaceUpdateApiService {
+            return retrofit.create(ItemPlaceUpdateApiService::class.java)
+        }
+
         fun getItemDeleteApiService(): ItemDeleteApiService {
             return retrofit.create(ItemDeleteApiService::class.java)
         }
 
+        fun getItemDeleteAllApiService(): ItemDeleteAllApiService {
+            return retrofit.create(ItemDeleteAllApiService::class.java)
+        }
+
         fun getItemCountUpdateApiService(): ItemCountUpdateApiService {
             return retrofit.create(ItemCountUpdateApiService::class.java)
+        }
+
+        fun getItemMoveApiService(): ItemMoveApiService {
+            return retrofit.create(ItemMoveApiService::class.java)
+        }
+
+        fun getUsedItemLoadApiService(): UsedItemLoadApiService {
+            return retrofit.create(UsedItemLoadApiService::class.java)
+        }
+
+        fun getUsedItemMoveApiService(): UsedItemMoveApiService {
+            return retrofit.create(UsedItemMoveApiService::class.java)
         }
 
         fun getUserInfoHomeAddApiService(): UserHomeInfoAddApiService {
@@ -83,8 +106,12 @@ class RetrofitManager private constructor() {
             return retrofit.create(UserHomeInfoLoadApiService::class.java)
         }
 
-        fun getUserHomeInfoChangeApiService(): UserHomeInfoChangeApiService {
-            return retrofit.create(UserHomeInfoChangeApiService::class.java)
+        fun getUserHomeNameChangeApiService(): UserHomeNameChangeApiService {
+            return retrofit.create(UserHomeNameChangeApiService::class.java)
+        }
+
+        fun getUserHomeInfoDeleteApiService(): UserHomeInfoDeleteApiService {
+            return retrofit.create(UserHomeInfoDeleteApiService::class.java)
         }
     }
 }

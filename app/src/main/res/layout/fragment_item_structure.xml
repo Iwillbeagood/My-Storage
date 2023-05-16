@@ -12,7 +12,7 @@
         android:id="@+id/searchLayoutInStr"
         android:layout_width="350dp"
         android:layout_height="49dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/bolder"
         android:elevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,13 +23,11 @@
             android:id="@+id/searchSpinner"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:background="@null"
             android:minHeight="48dp"
             android:paddingStart="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/menuBtnInStr"
@@ -50,8 +48,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="25dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchLayoutInStr" />
 
+
+    <TextView
+        android:id="@+id/emptyHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="148dp"
+        android:text="@string/빈페이지"
+        android:visibility="invisible"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchLayoutInStr" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

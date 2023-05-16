@@ -4,7 +4,7 @@ import android.text.TextWatcher
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.mystorage.mvvm.user.model.user.User
-import com.example.mystorage.retrofit.response.ApiResponse
+import com.example.mystorage.retrofit.model.ApiResponse
 import com.example.mystorage.mvvm.user.view.login.LoginIView
 import com.example.mystorage.retrofit.retrofitManager.RetrofitManager
 import com.example.mystorage.utils.Constants.TAG

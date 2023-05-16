@@ -1,5 +1,6 @@
 package com.example.mystorage.mvvm.item.view.itemUpdate
 
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -9,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,8 +21,9 @@ import com.example.mystorage.mvvm.item.view.CameraGalleryDialogFragment
 import com.example.mystorage.mvvm.item.view.itemList.ItemListFragment
 import com.example.mystorage.mvvm.item.viewmodel.itemUpdate.ItemUpdateViewModel
 import com.example.mystorage.mvvm.item.viewmodel.itemUpdate.ItemUpdateViewModelFactory
-import com.example.mystorage.retrofit.response.UserHomeInfoResponse
-import com.example.mystorage.retrofit.response.UserItem
+import com.example.mystorage.retrofit.model.UserHomeInfoResponse
+import com.example.mystorage.retrofit.model.UserItem
+import com.example.mystorage.retrofit.retrofitManager.LoadUserHomeInfoManager
 import com.example.mystorage.retrofit.retrofitManager.RetrofitManager
 import com.example.mystorage.utils.*
 import com.example.mystorage.utils.Constants.TAG
@@ -44,6 +45,7 @@ class ItemUpdateFragment : DialogFragment(), ItemUpdateIView, View.OnClickListen
 
     private lateinit var binding: FragmentItemUpdateBinding
     var items = mutableListOf<String>()
+    private lateinit var userItem : UserItem
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_item_update, container, false)
@@ -51,6 +53,7 @@ class ItemUpdateFragment : DialogFragment(), ItemUpdateIView, View.OnClickListen
         binding.viewModel = ViewModelProvider(this, itemUpdateFactory)[ItemUpdateViewModel::class.java]
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -63,7 +66,9 @@ class ItemUpdateFragment : DialogFragment(), ItemUpdateIView, View.OnClickListen
 
         val bundle = arguments
         val json = bundle?.getString("userItem")
-        val userItem = Json.decodeFromString(UserItem.serializer(), json!!)
+        userItem = Json.decodeFromString(UserItem.serializer(), json!!)
+
+        setUpdateSetting()
 
         // 장소 선택을 위한 스피너 설정
         val spinner = binding.itemPlaceUpdateSpinner
@@ -77,32 +82,24 @@ class ItemUpdateFragment : DialogFragment(), ItemUpdateIView, View.OnClickListen
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        val api = RetrofitManager.getUserHomeInfoLoadApiService()
-        val call = api.loadUserHomeInfo(App.prefs.getString("userid", ""))
-        call.enqueue(object : Callback<UserHomeInfoResponse> {
-            override fun onResponse(call: Call<UserHomeInfoResponse>, response: Response<UserHomeInfoResponse>) {
-                if (response.body() != null) {
-                    try {
-                        val loadedItems = LoadInfoForSpinner.userHomeInfoLoadResponse(response.body()!!)
-                        items.addAll(loadedItems)
-                        adapter.notifyDataSetChanged()
-                        // 사용자가 선택한 아이템으로 기본 설정
-                        setUpdateSetting(userItem)
-                    } catch (e: JSONException) {
-                        onItemUpdateError("응답 결과 파싱 중 오류가 발생했습니다")
-                    }
+        // 스피너 아이템을 서버로부터 불러와서 설정
+        val loadInfoManager = LoadUserHomeInfoManager.getInstance(requireContext())
+
+        loadInfoManager.itemDelete(
+            object : LoadUserHomeInfoManager.OnLoadInfoCompleteListener {
+                override fun onSuccess(loadedItems: MutableList<String>) {
+                    items.addAll(loadedItems)
+                    adapter.notifyDataSetChanged()
+                }
+
+                override fun onError(message: String) {
+                    onItemUpdateError(message)
                 }
             }
-            override fun onFailure(call: Call<UserHomeInfoResponse>, t: Throwable) {
-                onItemUpdateError("통신 실패")
-                call.cancel()
-            }
-        })
-
-
+        )
     }
 
-    override fun setUpdateSetting(userItem: UserItem) {
+    override fun setUpdateSetting() {
         binding.itemNameUpdateEdit.setText(userItem.itemname)
         binding.iteStoreUpdateEdit.setText(userItem.itemstore)
         binding.itemCountUpdateEdit.setText(userItem.itemcount)
@@ -129,7 +126,6 @@ class ItemUpdateFragment : DialogFragment(), ItemUpdateIView, View.OnClickListen
             userItem.itemimage.toString())
     }
 
-
     override fun updateImageBitmap(imageBitmap: Bitmap) {
         Log.d(TAG, "ItemUpdateFragment - updateImageBitmap() bitmap - $imageBitmap")
         binding.itemImageUpdateView.loadBitmap(imageBitmap)
@@ -144,21 +140,25 @@ class ItemUpdateFragment : DialogFragment(), ItemUpdateIView, View.OnClickListen
 
     override fun onItemUpdateSuccess(message: String?) {
         Log.d(TAG, "ItemUpdateFragment - onItemUpdateSuccess() called")
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        CustomToast.createToast(requireActivity(), message.toString()).show()
         dismiss()
         (activity as? MainPage)?.restartItemListFragment()
     }
 
     override fun onItemUpdateError(message: String?) {
         Log.d(TAG, "ItemUpdateFragment - onItemUpdateError() called")
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        CustomToast.createToast(requireActivity(), message.toString()).show()
     }
 
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.itemImageUpdate -> {
-                Log.d(TAG, "ItemUpdateFragment - itemImageUpdate onClick() called")
-                CameraGalleryDialogFragment().show(parentFragmentManager.beginTransaction(), "CameraGalleryDialogFragment")
+                if (binding.itemImageUpdate.isEnabled) {
+                    binding.itemImageUpdate.isEnabled = false
+                    Log.d(TAG, "ItemUpdateFragment - itemImageUpdate onClick() called")
+                    CameraGalleryDialogFragment().show(parentFragmentManager.beginTransaction(), "CameraGalleryDialogFragment")
+                    binding.itemImageUpdate.isEnabled = true
+                }
             }
             R.id.plusUpdateBtn -> {
                 Log.d(TAG, "ItemUpdateFragment - plusUpdateBtn onClick() called")
@@ -171,16 +171,29 @@ class ItemUpdateFragment : DialogFragment(), ItemUpdateIView, View.OnClickListen
                 val currentValue = binding.itemCountUpdateEdit.text.toString().toIntOrNull() ?: 0
                 val afterValue = currentValue - 1
                 if (afterValue > 0)
-                    binding.itemCountUpdateEdit.setText(afterValue.toString())
-            }
+                    binding.itemCountUpdateEdit.setText(afterValue.toString())            }
             R.id.itemUpdateBtn -> {
-                Log.d(TAG, "ItemUpdateFragment - itemUpdateBtn onClick() called")
-                binding.viewModel!!.onItemUpdate()
+                if (binding.itemUpdateBtn.isEnabled) {
+                    binding.itemUpdateBtn.isEnabled = false
+                    Log.d(TAG, "ItemUpdateFragment - itemUpdateBtn onClick() called")
+                    binding.viewModel!!.onItemUpdate(userItem.itemid)
+                    binding.itemUpdateBtn.isEnabled = true
+                }
             }
             R.id.itemUpdateBack -> {
-                Log.d(TAG, "ItemUpdateFragment - itemUpdateBack onClick() called")
-                dismiss()
+                if (binding.itemUpdateBack.isEnabled) {
+                    binding.itemUpdateBack.isEnabled = false
+                    Log.d(TAG, "ItemUpdateFragment - itemUpdateBack onClick() called")
+                    dismiss()
+                    binding.itemUpdateBack.isEnabled = true
+                }
             }
         }
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+        val itemListFragment = parentFragmentManager.findFragmentByTag("android:switcher:" + R.id.view_pager + ":1") as ItemListFragment?
+        itemListFragment?.onResume() // itemListFragment 인스턴스를 가져와서 getResponseOnItemLoad 메소드 호출
     }
 }

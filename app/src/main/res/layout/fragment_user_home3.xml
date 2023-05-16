@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".mvvm.userhome.view.UserHomeFragment3">
+    tools:context=".mvvm.userHome.view.UserHomeFragment3">
 
     <data>
         <variable
             name="viewModel"
-            type="com.example.mystorage.mvvm.userhome.viewmodel.UserHomeViewModel" />
+            type="com.example.mystorage.mvvm.userHome.viewmodel.UserHomeViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,7 +109,7 @@
 
                 <EditText
                     android:id="@+id/etcEdit"
-                    android:layout_width="290dp"
+                    android:layout_width="280dp"
                     android:layout_height="30dp"
                     android:background="@null"
                     android:hint="추가할 구조 이름을 정해주세요"
@@ -125,7 +125,7 @@
                     android:id="@+id/etcAddBtn"
                     android:layout_width="60dp"
                     android:layout_height="35dp"
-                    android:layout_marginEnd="1dp"
+                    android:layout_marginStart="1dp"
                     android:background="@drawable/brown_background_bolder"
                     android:clickable="true"
                     android:focusable="true"
@@ -135,8 +135,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/etcEdit"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.6" />
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
