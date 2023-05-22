@@ -1,17 +1,35 @@
 
-<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-  <img src="https://github.com/Iwillbeagood/My-Storage/assets/106158445/b320814e-df73-4a3e-bf64-a1e7fd9b9fa6" alt="My Image">
-</div>
+<h1 align="center">My Storage</h1>
+  <br>
+
+<p align="center">
+  <img src="https://github.com/Iwillbeagood/My-Storage/assets/106158445/a4559d4b-063f-47c0-8d62-70f6494b9d0a" alt="My Image">
+</p>
+<br>
 
 
-> TripGuide는 여행의 출발부터 다시 집에 돌아오는 것까지 계획을 세워주는 여행 계획 쉽고 빠르게 만들 수 있는 어플리케이션 입니다
+>  My Storage는 사용자가 자신이 구매한 생필품이나 물건을 위치별로 관리할 수 있게 하는 애플리케이션입니다. 사용자는 위치로 구분지어진 물건들을 확인할 수 있으며, 물건의 상태를 관리할 수 있습니다.
+>  사용자가 물건을 사용 완료 했을시 물건을 '사용 완료'로 옮겨 차후에 다시 구매해야할 물건을 확인할 수 있습니다.
+  <br>
 
-# 1. 제작 기간 & 참여인원
-  * 2022년 3월 ~ 2022년 11월
-  * 팀장: 배준형 (전체 기획, 안드로이드 스튜디오 전체 코드 설계)
-  * 팀원: 두유진 (안드로이드 스튜디오 Google login 구현)
+<h2>목차</h2>
 
-# 2. 사용 기술
+<ul>
+  <li><a href="#1-제작-기간">1. 제작 기간</a></li>
+  <li><a href="#2-사용-기술">2. 사용 기술</a></li>
+  <li><a href="#3-프로젝트-배경">3. 프로젝트 배경</a></li>
+  <li><a href="#4-프로젝트-구현-계획">4. 프로젝트 구현 계획</a></li>
+  <li><a href="#5-Architecture">5. Architecture</a></li>
+  <li><a href="#5-Overview">5. Overview</a></li>
+</ul>
+
+<h2 id="1-제작-기간">1. 제작 기간</h2>
+  <ul>
+    <li>2023년 3월 6일 ~ 2023년 5월 14일</li>
+  </ul>
+
+
+<h2 id="2-사용-기술">2. 사용 기술</h2>
 <div align=center><h1>📚 STACKS</h1></div>
 
 <div align=center> 
@@ -19,33 +37,36 @@
   <img src="https://img.shields.io/badge/kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white"> 
   <br>
   
-  <img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white">
-  <br>
-  
   <img src="https://img.shields.io/badge/android studio-3DDC84?style=for-the-badge&logo=android studio&logoColor=white">
   <br>
   
-  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+  <img src="https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white"> 
   <br>
+  
+  <img src="https://img.shields.io/badge/apache-D22128?style=for-the-badge&logo=apache&logoColor=white">   
+  <img src="https://img.shields.io/badge/php-777BB4?style=for-the-badge&logo=php&logoColor=white">
+  <img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white">
+  <br>
+  
+  <img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
+  
 </div>
 
-# 3. 프로젝트 배경
-> 이 프로젝트는 학과의 졸업과제로 시작하였습니다. 주제를 정할때 저희는 우리가 살면서 필요하다고 생각했던 것을 만들고자 했습니다. 
-> 저희는 여행을 갈때 효율적인 동선을 짜기 위해 많은 시간을 쓰곤 했고 그 시간을 줄여주는 어플리케이션을 만들면
-> 어떨까 생각을 했습니다. 그래서 졸업과제로 여행 계획을 쉽고 빠르게 만들 수 있는 어플리케이션을 만들었습니다.
+<h2 id="3-프로젝트-배경">3. 프로젝트 배경</h2>
+> 자취하면서 물건을 구매하는 과정에서 발생하는 문제를 해결하기 위해 시작된 이 프로젝트는, 필요한 물건을 즉흥적으로 구매하는 습관으로 인해 중복 구매가 빈번히 발생하고, 집에 이미 존재하는 물건을 잘 파악하지 못하는 문제에 대응하고자 합니다. 이를 위해 제작된 애플리케이션은 사용자가 불필요한 물건의 중복 구매를 방지할 수 있도록 도와주며, 구매한 물건을 위치별로 효과적으로 관리할 수 있습니다.
 
-# 4. 프로젝트 구현 계획
-|순서|구현 내용|설명|구현|
-|:---:|:---:|:---:|:---:|
-|1|Google Login|Firebase를 이용한 로그인 기능 구현|O|
-|2|여행지 추천|정보가 없는 사용자를 위한 여행지 추천|O|
-|3|다른 사람의 여행 일정 공유|사용자들 간의 일정 공유|X|
-|4|여행 일정 만들기|여행 일정 만들기 구현|O|
-|5|사용자 정보 입력|여행 일정 계산을 위한 정보 입력|O|
-|6|장소 입력|여행지에서 방문할 장소 입력|O|
-|7|여행 일정 완성|최적화된 여행 일정 완성|O|
-|8|만들어진 여행 일정 수정|여행 일정 추가 및 삭제, 이동하기|X|
-|9|만들어진 여행 일정 공유|카카오톡을 통한 여행 일종 공유|X|
+<h2 id="4-프로젝트-구현-계획">4. 프로젝트 구현 계획</h2>
+ <h4 align="center">프로젝트 구현 계획은 아래의 Notion에서 확인할 수 있습니다.</h1>
+ <h4 align="center"> 아래의 Notion에는 프로젝트 IA, Flowchart, ERD, wbs 그리고 프로젝트의 전체 진행사항이 있습니다.</h1>
+ <br>
+ <div align=center> 
+   <a href="https://cypress-eris-422.notion.site/My-storage-Project-management-2ec37e57fa0d42a59ed7de78c89d0b52">My Storage Notion 링크</a>
+  </div>
 
-# 5. Overview
+<h2 id="5-Architecture">5. Architecture</h2>
+**My Storage** 는 [Google's official architecture guidance](https://developer.android.com/topic/architecture).
+의 MVVM 설계 패턴을 따르고 있습니다.
+
+
+
+<h2 id="5-Overview">5. Overview</h2>
