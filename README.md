@@ -103,6 +103,10 @@
 <br>
 
 <div align=center><h1>Open API</h1></div>
+
+1. 핸드폰 인증을 위한 [NAVER SENS SMS](https://api.ncloud-docs.com/docs/ko/ai-application-service-sens-smsv2) 를 사용합니다. NAVER SENS SMS는 
+
+
 <br>
 
 <h2 id="7-Overview">7. Overview</h2>
