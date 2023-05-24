@@ -1,6 +1,5 @@
 
 <h1 align="center">My Storage</h1>
-  <br>
 
 <p align="center">
   <img src="https://github.com/Iwillbeagood/My-Storage/assets/106158445/a4559d4b-063f-47c0-8d62-70f6494b9d0a" alt="My Image">
@@ -10,6 +9,9 @@
 >  My Storage는 사용자가 자신이 구매한 생필품이나 물건을 위치별로 관리할 수 있게 하는 애플리케이션입니다. 사용자는 위치로 구분지어진 물건들을 확인할 수 있으며, 물건의 상태를 관리할 수 있습니다.
 >  사용자가 물건을 사용 완료 했을시 물건을 '사용 완료'로 옮겨 차후에 다시 구매해야할 물건을 확인할 수 있습니다.
 <br>
+
+## Download
+Go to the [Releases](https://github.com/Iwillbeagood/My-Storage/releases) to download the latest APK.
 
 <h2>🗊 목차</h2>
 <ul>
