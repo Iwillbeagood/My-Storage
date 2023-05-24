@@ -11,7 +11,7 @@
 <br>
 
 ## Download
-Go to the [Releases](https://github.com/Iwillbeagood/My-Storage/releases) to download the latest APK.
+최신 AAP를 다운로드 하기 위해 [Releases](https://github.com/Iwillbeagood/My-Storage/releases)로 이동하세요.
 
 <h2>🗊 목차</h2>
 <ul>
