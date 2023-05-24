@@ -11,7 +11,7 @@
 <br>
 
 ## Download
-최신 AA를 다운로드 하기 위해 [Releases](https://github.com/Iwillbeagood/My-Storage/releases)로 이동하세요.
+최신 APK는 [Releases](https://github.com/Iwillbeagood/My-Storage/releases)에서 다운로드 할 수 있습니다.
 
 <h2>🗊 목차</h2>
 <ul>
