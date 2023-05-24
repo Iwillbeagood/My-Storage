@@ -99,12 +99,10 @@
 <br>
 
 <h2 id="6-적용 기술">6. 적용 기술</h2>
-<div align=center><h1>MAD Score</h1></div>
-<br>
-
 <div align=center><h1>Open API</h1></div>
 
-1. 핸드폰 인증을 위한 [NAVER SENS SMS](https://api.ncloud-docs.com/docs/ko/ai-application-service-sens-smsv2) 를 사용합니다. NAVER SENS SMS는 
+1. 핸드폰 인증을 위한 [NAVER SENS SMS](https://api.ncloud-docs.com/docs/ko/ai-application-service-sens-smsv2) 를 사용합니다. NAVER SENS SMS는 사용자의 번호로 SMS 메시지를 전송할 수 있습니다.
+2. 영수증에 있는 정보를 인식하기 위한 [NAVER CLOVA OCR](https://www.ncloud.com/product/aiService/ocr) 를 사용합니다. NAVER CLOVA OCR은 문서를 인식하고 사용자가 지정한 영역의 텍스트와 데이터를 정확하게 제공합니다.
 
 
 <br>
