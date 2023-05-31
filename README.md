@@ -22,7 +22,7 @@
   <li><a href="#5-Architecture">5. Architecture</a></li>
   <li><a href="#6-적용-기술">6. 적용 기술</a></li>
   <li><a href="#7-Overview">7. Overview</a></li>
-  <li><a href="#8-고찰">8. Overview</a></li>
+  <li><a href="#8-고찰">8. 고찰</a></li>
 </ul>
 <br>
 
