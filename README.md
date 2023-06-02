@@ -185,11 +185,14 @@ MyStorage의 메인 화면은 '구조', '목록', '사용 완료'라는 세 가�
 위와 같은 구성을 가진 MyStorage는 사용자에게 편리하고 직관적인 인터페이스를 제공하여 물건의 상태와 관련된 정보를 손쉽게 확인하고 관리할 수 있도록 도와줍니다.
 
 <br>
-<br>
 
 <p align="center">
   <img src="https://github.com/Iwillbeagood/My-Storage/assets/106158445/08120206-c94a-4b58-b809-09a136212d4e" alt="My Image">
 </p>
+
+<br>
+<br>
+
 
 MyStorage에서는 사용자가 목록 페이지와 사용 완료 페이지에서 물건을 클릭하여 상태를 변경할 수 있습니다. 목록 페이지의 클릭 이벤트는 일반 클릭과 롱 클릭으로 구분됩니다.
 
@@ -252,10 +255,12 @@ MyStorage에서는 사용자가 목록 페이지와 사용 완료 페이지에�
 <br>
  <div align=center> 
    <a href="https://github.com/Iwillbeagood/My-Storage-PHP">My Storage Backend 링크</a>
-  
   </div>
+  
+  <br>
+  
    <div align=center> 
-   <a href=" https://everyday-develop-myself.tistory.com/category/Backend">서버에 대한 블로그 링크</a>
+   <a href="https://everyday-develop-myself.tistory.com/category/Backend">서버에 대한 블로그 링크</a>
   </div>
 
   
