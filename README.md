@@ -144,6 +144,10 @@ My Storage는 회원 가입을 통해 데이터베이스에서 사용자를 관�
 
 위와 같은 기능을 가진 My Storage는 사용자들의 편의성을 최우선으로 생각하며, 매끄럽고 원활한 경험을 제공합니다.
 
+ <div align=center> 
+   <a href="https://everyday-develop-myself.tistory.com/129">네이버 로그인에 대한 블로그 링크</a>
+  </div>
+
 <br>
 <br>
 
@@ -216,6 +220,11 @@ MyStorage에서는 사용자가 목록 페이지와 사용 완료 페이지에�
 물건 추가:
 물건 추가 버튼을 클릭하면 사용자는 물건을 추가할 수 있는 옵션을 선택할 수 있습니다. 영수증 정보를 자동으로 추가하는 기능은 아직 구현 중이므로, 현재는 수동으로 물건 정보를 입력하는 방식을 사용합니다. 사용자는 물건의 정보를 수동으로 입력하여 목록에 추가할 수 있습니다.
 
+
+ <div align=center> 
+   <a href="https://everyday-develop-myself.tistory.com/135">카메라 갤러리 저장소 접근권한 부여에 대한 블로그 링크</a>
+  </div>
+
 <br>
 
 <p align="center">
@@ -243,7 +252,13 @@ MyStorage에서는 사용자가 목록 페이지와 사용 완료 페이지에�
 <br>
  <div align=center> 
    <a href="https://github.com/Iwillbeagood/My-Storage-PHP">My Storage Backend 링크</a>
+  
   </div>
+   <div align=center> 
+   <a href=" https://everyday-develop-myself.tistory.com/category/Backend">서버에 대한 블로그 링크</a>
+  </div>
+
+  
 <br>
 
 <h2 id="8-고찰">8. 고찰</h2>
