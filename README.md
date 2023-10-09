@@ -114,13 +114,13 @@
 
 <h2 id="5-Architecture">5. Architecture</h2>
 
- **My Storage**  는 [Google's official architecture guidance](https://developer.android.com/topic/architecture).
-의 MVVM architecture Pattern을 따르고 있습니다.
+ **My Storage**  는 MVP architecture Pattern을 따르고 있습니다.
 <br>
 
 <p align="center">
-  <img src="https://github.com/Iwillbeagood/My-Storage/assets/106158445/bb1ef6e1-50b6-4e55-89cc-b5b99a1ee57e" alt="My Image">
-</p>
+  
+   ![image](https://github.com/Iwillbeagood/My-Storage/assets/106158445/a6f67d05-af94-4cad-a7cb-95fe59e6b095)
+   
 <br>
 
 <h2 id="6-적용 기술">6. 적용 기술</h2>
