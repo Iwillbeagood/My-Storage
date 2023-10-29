@@ -102,7 +102,7 @@
   - ViewModel: UI 관련 데이터 홀더를 관리하며 라이프사이클을 인식합니다. 화면 회전과 같은 구성 변경에서 데이터를 보존할 수 있습니다. 
   - DataBinding: UI 구성요소를 프로그래밍적으로가 아닌 선언적 형식으로 레이아웃에 데이터 소스와 바인딩합니다.
 - Architecture
-  - MVVM Architecture (View - DataBinding - ViewModel - Model)
+  - MVP Architecture
   - Bindables: UI 레이어에 데이터 변경을 알리기 위한 Android DataBinding 킷입니다.
 - Retrofit2 & OkHttp3: REST API 및 페이징 네트워크 데이터 생성
 - ViewPager2: 메인 페이지의 화면 전환에 사용됩니다.
